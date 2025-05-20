@@ -4,6 +4,8 @@
  */
 package interfaz;
 
+import bbdd.DAOUsuarios;
+import entidades.Usuario;
 import javax.swing.JOptionPane;
 
 /**
@@ -189,15 +191,29 @@ public class Registro extends javax.swing.JFrame {
         }
 
         if (!terminos.isSelected()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Acepta los terminos y condiciones", "Aviso", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Acepta los terminos y condiciones", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         if (!correo.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Formato de correo inválido", "Aviso", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Formato de correo inválido", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
+        DAOUsuarios du = new DAOUsuarios();
+        Usuario existe = du.buscarPorNombre(correo);
+        if (existe != null) {
+            JOptionPane.showMessageDialog(this, "Este correo ya está registrado", "Cuenta existente", JOptionPane.WARNING_MESSAGE);
+        } else {
+            DAOUsuarios dus = new DAOUsuarios();
+            Usuario nuevo = new Usuario(correo, password, usuario, false);
+            dus.insertarUsuario(nuevo);
+            JOptionPane.showMessageDialog(this, "La cuenta se ha creado correctamente", "Registro completado", JOptionPane.INFORMATION_MESSAGE);
+
+            Login login = new Login();
+            dispose();
+            login.setVisible(true);
+        }
     }//GEN-LAST:event_crearcuentaregistroActionPerformed
 
     private void terminosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_terminosActionPerformed
