@@ -205,9 +205,8 @@ public class Registro extends javax.swing.JFrame {
         if (existe != null) {
             JOptionPane.showMessageDialog(this, "Este correo ya está registrado", "Cuenta existente", JOptionPane.WARNING_MESSAGE);
         } else {
-            DAOUsuarios dus = new DAOUsuarios();
             Usuario nuevo = new Usuario(correo, password, usuario, false);
-            dus.insertarUsuario(nuevo);
+            du.insertarUsuario(nuevo);
             JOptionPane.showMessageDialog(this, "La cuenta se ha creado correctamente", "Registro completado", JOptionPane.INFORMATION_MESSAGE);
 
             Login login = new Login();
