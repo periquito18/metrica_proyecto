@@ -4,7 +4,11 @@
  */
 package interfaz;
 
+import entidades.Producto;
 import entidades.Usuario;
+import java.awt.*;
+import java.util.*;
+import javax.swing.*;
 
 /**
  *
@@ -17,15 +21,36 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-
-    public Principal(Usuario usuario) {
+    public Principal() {
         initComponents();
         setLocationRelativeTo(null);
+        panelproducto.setLayout(new GridLayout(0, 5, 10, 10));
+    }
+
+    public Principal(Usuario usuario) {
         this.usuario = usuario;
     }
 
-    public Principal() {
-       this(null);
+    private void cargarproducto() {
+        panelproducto.removeAll();
+        ArrayList<Producto> productos = new ArrayList<>(); //DAOProductos.cargarproductos();
+        for (Producto producto : productos) {
+            JPanel panel = new JPanel();
+            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+            panel.setPreferredSize(new Dimension(150, 200));
+
+            ImageIcon imagen = new ImageIcon(getClass().getResource("/img/" + producto.getNombre() + ".jpg"));
+            Image imgproducto = imagen.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH);
+            JLabel Imagen = new JLabel(new ImageIcon(imgproducto));
+            Imagen.setPreferredSize(new Dimension(120, 100));
+            Imagen.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JLabel Nombre = new JLabel(producto.getNombre(), SwingConstants.CENTER);
+            JLabel Precio = new JLabel(String.format("%.2f €", producto.getPrecio(), SwingConstants.CENTER));
+            Nombre.setAlignmentX(Component.CENTER_ALIGNMENT);
+            Precio.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        }
     }
 
     /**
@@ -42,7 +67,7 @@ public class Principal extends javax.swing.JFrame {
         buscartexto = new javax.swing.JLabel();
         buscarpanel = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel2 = new javax.swing.JPanel();
+        panelproducto = new javax.swing.JPanel();
         cerrarsesion = new javax.swing.JButton();
         carrito = new javax.swing.JButton();
         pedidos = new javax.swing.JButton();
@@ -56,9 +81,9 @@ public class Principal extends javax.swing.JFrame {
         buscartexto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         buscartexto.setText("Buscar");
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(null);
-        jScrollPane1.setViewportView(jPanel2);
+        panelproducto.setBackground(new java.awt.Color(255, 255, 255));
+        panelproducto.setLayout(null);
+        jScrollPane1.setViewportView(panelproducto);
 
         cerrarsesion.setBackground(new java.awt.Color(102, 102, 102));
         cerrarsesion.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
@@ -90,7 +115,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(cerrarsesion, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(textogymapp)
-                .addGap(79, 79, 79)
+                .addGap(80, 80, 80)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(carrito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
@@ -103,7 +128,6 @@ public class Principal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textogymapp)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -116,7 +140,10 @@ public class Principal extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(pedidos)
                             .addComponent(buscartexto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buscarpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(buscarpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(textogymapp)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -181,8 +208,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton carrito;
     private javax.swing.JButton cerrarsesion;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel panelproducto;
     private javax.swing.JButton pedidos;
     private javax.swing.JLabel textogymapp;
     // End of variables declaration//GEN-END:variables
