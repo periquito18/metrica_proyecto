@@ -7,6 +7,8 @@ package interfaz;
 import entidades.Producto;
 import entidades.Usuario;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.*;
 
@@ -21,17 +23,25 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    public Principal() {
+    public Principal(Usuario usuario) {
         initComponents();
         setLocationRelativeTo(null);
-        panelproducto.setLayout(new GridLayout(0, 5, 10, 10));
-    }
-
-    public Principal(Usuario usuario) {
         this.usuario = usuario;
+        //etiquetaUsuario.setText("Bienvenido " + usuario.getNombre());
+        if (usuario != null) {
+            etiquetaUsuario.setText("Bienvenido " + usuario.getNombre());
+        } else {
+            etiquetaUsuario.setText("Bienvenido Invitado");
+        }
+        panelproducto.setLayout(new GridLayout(0, 5, 10, 10));
+        cargarProducto();
     }
 
-    private void cargarproducto() {
+    public Principal() {
+        this(null);
+    }
+
+    private void cargarProducto() {
         panelproducto.removeAll();
         ArrayList<Producto> productos = new ArrayList<>(); //DAOProductos.cargarproductos();
         for (Producto producto : productos) {
@@ -49,15 +59,15 @@ public class Principal extends javax.swing.JFrame {
             JLabel Precio = new JLabel(String.format("%.2f €", producto.getPrecio(), SwingConstants.CENTER));
             Nombre.setAlignmentX(Component.CENTER_ALIGNMENT);
             Precio.setAlignmentX(Component.CENTER_ALIGNMENT);
-            
-            JButton Carrito = new JButton("Añadir al carrito");
-            Carrito.setAlignmentX(CENTER_ALIGNMENT);
-            
+
+            JButton añadirCarrito = new JButton("Añadir al carrito");
+            añadirCarrito.setAlignmentX(CENTER_ALIGNMENT);
+
             panel.add(Imagen);
             panel.add(Nombre);
             panel.add(Precio);
-            panel.add(Carrito);
-               
+            panel.add(añadirCarrito);
+
             panelproducto.add(panel);
         }
         panelproducto.revalidate();
@@ -82,6 +92,7 @@ public class Principal extends javax.swing.JFrame {
         cerrarsesion = new javax.swing.JButton();
         carrito = new javax.swing.JButton();
         pedidos = new javax.swing.JButton();
+        etiquetaUsuario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -100,6 +111,11 @@ public class Principal extends javax.swing.JFrame {
         cerrarsesion.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         cerrarsesion.setForeground(new java.awt.Color(255, 255, 255));
         cerrarsesion.setText("Cerrar Sesión");
+        cerrarsesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarsesionActionPerformed(evt);
+            }
+        });
 
         carrito.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         carrito.setText("Carrito");
@@ -111,6 +127,14 @@ public class Principal extends javax.swing.JFrame {
 
         pedidos.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         pedidos.setText("Pedidos");
+        pedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pedidosActionPerformed(evt);
+            }
+        });
+
+        etiquetaUsuario.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        etiquetaUsuario.setText("jLabel1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -125,7 +149,9 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(buscarpanel, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cerrarsesion, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(textogymapp)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textogymapp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(etiquetaUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(80, 80, 80)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(carrito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -138,7 +164,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -153,8 +179,9 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(buscartexto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(buscarpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(textogymapp)))
+                        .addComponent(textogymapp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                        .addComponent(etiquetaUsuario)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -175,8 +202,26 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void carritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carritoActionPerformed
-        // TODO add your handling code here:
+        VentanaCarrito carrito = new VentanaCarrito(usuario);
+        carrito.setSize(550, 540);
+        carrito.setLocationRelativeTo(null);
+        carrito.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        carrito.setVisible(true);
     }//GEN-LAST:event_carritoActionPerformed
+
+    private void cerrarsesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarsesionActionPerformed
+        Login login = new Login();
+        dispose();
+        login.setVisible(true);
+    }//GEN-LAST:event_cerrarsesionActionPerformed
+
+    private void pedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pedidosActionPerformed
+        Pedidos pedidos = new Pedidos(usuario);
+        pedidos.setSize(550, 540);
+        pedidos.setLocationRelativeTo(null);
+        pedidos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        pedidos.setVisible(true);
+    }//GEN-LAST:event_pedidosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,6 +263,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel buscartexto;
     private javax.swing.JButton carrito;
     private javax.swing.JButton cerrarsesion;
+    private javax.swing.JLabel etiquetaUsuario;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelproducto;
