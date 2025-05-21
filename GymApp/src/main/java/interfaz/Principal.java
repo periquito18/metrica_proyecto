@@ -49,8 +49,19 @@ public class Principal extends javax.swing.JFrame {
             JLabel Precio = new JLabel(String.format("%.2f €", producto.getPrecio(), SwingConstants.CENTER));
             Nombre.setAlignmentX(Component.CENTER_ALIGNMENT);
             Precio.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+            
+            JButton Carrito = new JButton("Añadir al carrito");
+            Carrito.setAlignmentX(CENTER_ALIGNMENT);
+            
+            panel.add(Imagen);
+            panel.add(Nombre);
+            panel.add(Precio);
+            panel.add(Carrito);
+               
+            panelproducto.add(panel);
         }
+        panelproducto.revalidate();
+        panelproducto.repaint();
     }
 
     /**
