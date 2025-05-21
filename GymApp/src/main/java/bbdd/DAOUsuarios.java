@@ -28,7 +28,7 @@ public class DAOUsuarios {
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                user = new Usuario(id, rs.getString("password"), rs.getString("nombre"), rs.getBoolean("esAdmin"));
+                user = new Usuario(Integer.parseInt(id), rs.getString("password"), rs.getString("nombre"), rs.getString("email"), rs.getString("localidad"), rs.getBoolean("es_admin"));
             }
         } catch (SQLException e) {
             System.err.println("buscarPorId: " + e.getMessage());
@@ -38,21 +38,19 @@ public class DAOUsuarios {
         return user;
     }
     
-    public Usuario buscarPorNombre(String nombre) {
+    public Usuario buscarPorEmail(String email) {
         Usuario user = null;
         Connection conn = null;
         try {
             conn = Conexion.conectarBD();
-            System.out.println("Conexion:" + conn);
-            PreparedStatement ps = conn.prepareStatement("select * from usuario where nombre = ?");
-            ps.setString(1, nombre);
+            PreparedStatement ps = conn.prepareStatement("select * from usuario where email = ?");
+            ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                System.out.println(rs.getString("id") + rs.getString("password") + rs.getString("nombre") + rs.getBoolean("es_admin"));
-                user = new Usuario(rs.getString("id"), rs.getString("password"), rs.getString("nombre"), rs.getBoolean("es_admin"));
+                user = new Usuario(rs.getInt("id"), rs.getString("password"), rs.getString("nombre"), email, rs.getString("localidad"), rs.getBoolean("es_admin"));
             }
         } catch (SQLException e) {
-            System.err.println("buscarPorNombre: " + e.getMessage());
+            System.err.println("buscarPorEmail: " + e.getMessage());
         } finally {
             Conexion.desconectarBD(conn);
         }
@@ -63,11 +61,13 @@ public class DAOUsuarios {
         Connection conn = null;
         try {
             conn = Conexion.conectarBD();
-            PreparedStatement ps = conn.prepareStatement("insert into usuario values(?, ?, ?, ?)");
-            ps.setString(1, user.getId());
+            PreparedStatement ps = conn.prepareStatement("insert into usuario values(?, ?, ?, ?, ?, ?)");
+            ps.setInt(1, user.getId());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getNombre());
-            ps.setBoolean(4, user.isEsAdmin());
+            ps.setString(4, user.getEmail());
+            ps.setString(5, user.getLocalidad());
+            ps.setBoolean(6, user.isEsAdmin());
             ps.execute();
         } catch (SQLException e) {
             System.err.println("insertarUsuario: " + e.getMessage());
@@ -84,7 +84,7 @@ public class DAOUsuarios {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("select * from usuarios");
             while (rs.next()) {
-                Usuario user = new Usuario(rs.getString("id"), rs.getString("password"), rs.getString("nombre"), rs.getBoolean("esAdmin"));
+                Usuario user = new Usuario(rs.getInt("id"), rs.getString("password"), rs.getString("nombre"), rs.getString("email"), rs.getString("localidad"), rs.getBoolean("esAdmin"));
                 usuarios.add(user);
             }
         } catch (SQLException e) {
