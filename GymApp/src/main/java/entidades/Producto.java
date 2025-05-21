@@ -1,30 +1,99 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Entidad Producto
  */
 package entidades;
 
+import java.util.Objects;
+
 /**
  *
- * @author usuarioDAW
+ * @author SGame
  */
 public class Producto {
+    private int id;
     private String nombre;
     private double precio;
-
-    public Producto(String nombre, double precio) {
+    private int stock;
+    private Categoria categoria;
+    
+    public Producto(){
+        
+    }
+    
+    public Producto(int id, String nombre, double precio, int stock, Categoria categoria){
+        this.id = id;
         this.nombre = nombre;
         this.precio = precio;
+        this.stock = stock;
+        this.categoria = categoria;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
         return nombre;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public double getPrecio() {
         return precio;
     }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+//    @Override
+//    public int hashCode() {
+//        int hash = 3;
+//        hash = 11 * hash + Objects.hashCode(this.id);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final Producto other = (Producto) obj;
+//        return Objects.equals(this.id, other.id);
+//    }
     
-    
+    @Override
+    public String toString(){
+        return "Producto: " + nombre + ", precio: " + precio + ", cantidad: " + stock + ", categoria: " + categoria;
+    }
 }
+
 

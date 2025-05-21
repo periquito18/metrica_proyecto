@@ -1,0 +1,98 @@
+/*
+ * Entidad Pedido
+ */
+package entidades;
+
+import java.time.LocalDateTime;
+import java.util.Objects;
+
+/**
+ *
+ * @author SGame
+ */
+public class Pedido {
+    private int id;
+    private int usuarioId;
+    private LocalDateTime fecha;
+    private double total;
+    private Estado tipoEstado;
+    
+    public Pedido(){
+        
+    }
+    
+    public Pedido(int id, int usuarioId, LocalDateTime fecha, double total, Estado tipoEstado){
+        this.id = id;
+        this.usuarioId = usuarioId;
+        this.fecha = fecha;
+        this.total = total;
+        this.tipoEstado = tipoEstado;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(int usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
+    public LocalDateTime getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public Estado getTipoEstado() {
+        return tipoEstado;
+    }
+
+    public void setTipoEstado(Estado tipoEstado) {
+        this.tipoEstado = tipoEstado;
+    }
+
+//    @Override
+//    public int hashCode() {
+//        int hash = 7;
+//        hash = 11 * hash + Objects.hashCode(this.id);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final Pedido other = (Pedido) obj;
+//        return Objects.equals(this.id, other.id);
+//    }
+    
+    @Override
+    public String toString(){
+        return "Pedido id: " + id + ", Usuario id: " + usuarioId + ", fecha: " + fecha + ", precio: " + total + "estado: " + tipoEstado;
+    }
+}

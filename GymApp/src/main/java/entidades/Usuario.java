@@ -8,9 +8,11 @@ package entidades;
  * @author SGame
  */
 public class Usuario {
-    private String id;
+    private int id;
     private String nombre;
     private String password;
+    private String email;
+    private String localidad;
     private boolean esAdmin;
 //    private List<Pedido> pedidos;
 
@@ -19,19 +21,21 @@ public class Usuario {
 //        pedidos = new ArryaList<>();
 //    }
     
-    public Usuario(String id, String nombre, String password, boolean esAdmin) {
+    public Usuario(int id, String nombre, String password, String email, String localidad, boolean esAdmin) {
         this.id = id;
         this.nombre = nombre;
         this.password = password;
+        this.email = email;
+        this.localidad = localidad;
         this.esAdmin = esAdmin;
 //        this.pedidos = new ArrayList<>();
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -49,6 +53,22 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
     }
 
     public boolean isEsAdmin() {
@@ -73,7 +93,7 @@ public class Usuario {
     
     @Override
     public String toString(){
-        return nombre;
+        return email;
     }
 
 //    @Override
