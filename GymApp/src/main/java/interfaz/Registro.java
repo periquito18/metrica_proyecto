@@ -201,11 +201,11 @@ public class Registro extends javax.swing.JFrame {
         }
 
         DAOUsuarios du = new DAOUsuarios();
-        Usuario existe = du.buscarPorNombre(correo);
+        Usuario existe = du.buscarPorEmail(correo);
         if (existe != null) {
             JOptionPane.showMessageDialog(this, "Este correo ya está registrado", "Cuenta existente", JOptionPane.WARNING_MESSAGE);
         } else {
-            Usuario nuevo = new Usuario(correo, password, usuario, false);
+            Usuario nuevo = new Usuario(10, usuario, password, correo, localidad, false);
             du.insertarUsuario(nuevo);
             JOptionPane.showMessageDialog(this, "La cuenta se ha creado correctamente", "Registro completado", JOptionPane.INFORMATION_MESSAGE);
 

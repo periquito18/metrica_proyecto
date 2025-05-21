@@ -51,8 +51,8 @@ public class Login extends javax.swing.JFrame {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         imageninicio = new javax.swing.JLabel();
         textoiniciodesesion = new javax.swing.JLabel();
-        textousuario = new javax.swing.JLabel();
-        campoUsuario = new javax.swing.JTextField();
+        textocorreo = new javax.swing.JLabel();
+        campoCorreo = new javax.swing.JTextField();
         textocontraseña = new javax.swing.JLabel();
         campoPassword = new javax.swing.JPasswordField();
         botonIniciar = new javax.swing.JButton();
@@ -72,14 +72,14 @@ public class Login extends javax.swing.JFrame {
         jLayeredPane1.add(textoiniciodesesion);
         textoiniciodesesion.setBounds(130, 30, 340, 52);
 
-        textousuario.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        textousuario.setText("Usuario");
-        jLayeredPane1.setLayer(textousuario, javax.swing.JLayeredPane.PALETTE_LAYER);
-        jLayeredPane1.add(textousuario);
-        textousuario.setBounds(30, 110, 70, 30);
-        jLayeredPane1.setLayer(campoUsuario, javax.swing.JLayeredPane.PALETTE_LAYER);
-        jLayeredPane1.add(campoUsuario);
-        campoUsuario.setBounds(130, 110, 310, 30);
+        textocorreo.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        textocorreo.setText("Correo");
+        jLayeredPane1.setLayer(textocorreo, javax.swing.JLayeredPane.PALETTE_LAYER);
+        jLayeredPane1.add(textocorreo);
+        textocorreo.setBounds(30, 110, 70, 30);
+        jLayeredPane1.setLayer(campoCorreo, javax.swing.JLayeredPane.PALETTE_LAYER);
+        jLayeredPane1.add(campoCorreo);
+        campoCorreo.setBounds(130, 110, 310, 30);
 
         textocontraseña.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         textocontraseña.setText("Contraseña");
@@ -133,15 +133,15 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarActionPerformed
-        String usuario = campoUsuario.getText().trim();
+        String correo = campoCorreo.getText().trim();
         String password = campoPassword.getText().trim();
-        if (usuario.isEmpty() || password.isBlank()) {
-            JOptionPane.showMessageDialog(this, "Debe especificar usuario y contraseña", "Aviso", JOptionPane.WARNING_MESSAGE);
+        if (correo.isEmpty() || password.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Debe especificar correo y contraseña", "Aviso", JOptionPane.WARNING_MESSAGE);
         } else {
             DAOUsuarios du = new DAOUsuarios();
-            Usuario user = du.buscarPorNombre(usuario);
+            Usuario user = du.buscarPorEmail(correo);
             if (user == null || !user.getPassword().equals(password)) {
-                JOptionPane.showMessageDialog(this, "usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "correo o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 if (user.isEsAdmin()) {
                     Administracion administracion = new Administracion(user);
@@ -203,24 +203,22 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Login().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonIniciar;
+    private javax.swing.JTextField campoCorreo;
     private javax.swing.JPasswordField campoPassword;
-    private javax.swing.JTextField campoUsuario;
     private javax.swing.JButton crearcuenta;
     private javax.swing.JLabel imageninicio;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLabel textocontraseña;
+    private javax.swing.JLabel textocorreo;
     private javax.swing.JLabel textoiniciodesesion;
     private javax.swing.JLabel textoprimeravez;
-    private javax.swing.JLabel textousuario;
     // End of variables declaration//GEN-END:variables
 
 }
