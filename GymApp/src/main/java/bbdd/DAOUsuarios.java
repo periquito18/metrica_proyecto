@@ -47,7 +47,7 @@ public class DAOUsuarios {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                user = new Usuario(rs.getInt("id_usuario"), rs.getString("password"), rs.getString("nombre"), email, rs.getString("localidad"), rs.getBoolean("es_admin"));
+                user = new Usuario(rs.getInt("id_usuario"), rs.getString("nombre"), rs.getString("password"), email, rs.getString("localidad"), rs.getBoolean("es_admin"));
             }
         } catch (SQLException e) {
             System.err.println("buscarPorEmail: " + e.getMessage());
