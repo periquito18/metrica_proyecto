@@ -47,7 +47,7 @@ public class DAOUsuarios {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                user = new Usuario(rs.getInt("id"), rs.getString("password"), rs.getString("nombre"), email, rs.getString("localidad"), rs.getBoolean("es_admin"));
+                user = new Usuario(rs.getInt("id_usuario"), rs.getString("password"), rs.getString("nombre"), email, rs.getString("localidad"), rs.getBoolean("es_admin"));
             }
         } catch (SQLException e) {
             System.err.println("buscarPorEmail: " + e.getMessage());
@@ -61,13 +61,13 @@ public class DAOUsuarios {
         Connection conn = null;
         try {
             conn = Conexion.conectarBD();
-            PreparedStatement ps = conn.prepareStatement("insert into usuario values(?, ?, ?, ?, ?, ?)");
-            ps.setInt(1, user.getId());
+            PreparedStatement ps = conn.prepareStatement("insert into usuario (nombre, password, email, localidad, es_admin) values(?, ?, ?, ?, ?)");
+            //ps.setInt(1, user.getId());
+            ps.setString(1, user.getNombre());
             ps.setString(2, user.getPassword());
-            ps.setString(3, user.getNombre());
-            ps.setString(4, user.getEmail());
-            ps.setString(5, user.getLocalidad());
-            ps.setBoolean(6, user.isEsAdmin());
+            ps.setString(3, user.getEmail());
+            ps.setString(4, user.getLocalidad());
+            ps.setBoolean(5, user.isEsAdmin());
             ps.execute();
         } catch (SQLException e) {
             System.err.println("insertarUsuario: " + e.getMessage());
@@ -84,7 +84,7 @@ public class DAOUsuarios {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("select * from usuarios");
             while (rs.next()) {
-                Usuario user = new Usuario(rs.getInt("id"), rs.getString("password"), rs.getString("nombre"), rs.getString("email"), rs.getString("localidad"), rs.getBoolean("esAdmin"));
+                Usuario user = new Usuario(rs.getInt("id_usuario"), rs.getString("password"), rs.getString("nombre"), rs.getString("email"), rs.getString("localidad"), rs.getBoolean("es_admin"));
                 usuarios.add(user);
             }
         } catch (SQLException e) {
