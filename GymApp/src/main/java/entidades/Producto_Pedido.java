@@ -11,12 +11,14 @@ import java.util.logging.Logger;
  * @author SGame
  */
 public class Producto_Pedido {
+    // Atributos
     private int id;
     private int pedidoId;
     private int productoId;
     private int cantidad;
     private double precioUnidad;
     
+    // Constructores
     public Producto_Pedido(){
         
     }
@@ -28,7 +30,15 @@ public class Producto_Pedido {
         this.cantidad = cantidad;
         this.precioUnidad = precioUnidad;
     }
+    
+    public Producto_Pedido(int pedidoId, int productoId, int cantidad, double precioUnidad){
+        this.pedidoId = pedidoId;
+        this.productoId = productoId;
+        this.cantidad = cantidad;
+        this.precioUnidad = precioUnidad;
+    }
 
+    // Métodos Getter y Setter
     public int getId() {
         return id;
     }
@@ -95,9 +105,14 @@ public class Producto_Pedido {
 //        return Objects.equals(this.productoId, other.productoId);
 //    }
     
+    /**
+     * Método toString
+     * @return 
+     */
     @Override
     public String toString(){
         return "Pedido: " + pedidoId + ", producto: " + productoId + ", cantidad: " + cantidad + ", precio por unidad: " + precioUnidad;
     }
     
+    // Métodos propios de la clase
 }

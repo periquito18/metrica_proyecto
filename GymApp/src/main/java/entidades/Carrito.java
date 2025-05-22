@@ -11,10 +11,12 @@ import java.time.LocalDateTime;
  * @author SGame
  */
 public class Carrito {
+    // Atributos
     private int id;
     private int usuarioId;
     private LocalDateTime fecha;
     
+    // Constructores
     public Carrito(){
         
     }
@@ -24,7 +26,13 @@ public class Carrito {
         this.usuarioId = usuarioId;
         this.fecha = fecha;
     }
+    
+    public Carrito(int usuarioId, LocalDateTime fecha){
+        this.usuarioId = usuarioId;
+        this.fecha = fecha;
+    }
 
+    // Métodos Getter y Setter
     public int getId() {
         return id;
     }
@@ -50,7 +58,7 @@ public class Carrito {
     }
     
     /**
-     *
+     * Método toString
      * @return
      */
     @Override
@@ -80,5 +88,5 @@ public class Carrito {
 //        return this.id == other.id;
 //    }
     
-    
+    // Métodos propios de la clase
 }

@@ -8,6 +8,7 @@ package entidades;
  * @author SGame
  */
 public class Usuario {
+    // Atributos
     private int id;
     private String nombre;
     private String password;
@@ -16,10 +17,18 @@ public class Usuario {
     private boolean esAdmin;
 //    private List<Pedido> pedidos;
 
-    //¿pq?
+    // Constructores
 //    public Usuario(){
 //        pedidos = new ArryaList<>();
 //    }
+    
+    public Usuario(String nombre, String password, String email, String localidad, boolean esAdmin){
+        this.nombre = nombre;
+        this.password = password;
+        this.email = email;
+        this.localidad = localidad;
+        this.esAdmin = esAdmin;
+    }
     
     public Usuario(int id, String nombre, String password, String email, String localidad, boolean esAdmin) {
         this.id = id;
@@ -31,6 +40,7 @@ public class Usuario {
 //        this.pedidos = new ArrayList<>();
     }
 
+    // Métodos Getter y Setter
     public int getId() {
         return id;
     }
@@ -91,6 +101,10 @@ public class Usuario {
 //        this.pedidos.add(pedido);
 //    }
     
+    /**
+     * Método toString
+     * @return 
+     */
     @Override
     public String toString(){
         return email;
@@ -117,4 +131,6 @@ public class Usuario {
 //        final Usuario other = (Usuario) obj;
 //        return Objects.equals(this.id, other.id);
 //    }
+    
+    // Métodos propios de la clase
 }

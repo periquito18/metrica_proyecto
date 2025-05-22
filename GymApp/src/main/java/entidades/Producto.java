@@ -10,12 +10,14 @@ import java.util.Objects;
  * @author SGame
  */
 public class Producto {
+    // Atributos
     private int id;
     private String nombre;
     private double precio;
     private int stock;
     private Categoria categoria;
     
+    // Constructores
     public Producto(){
         
     }
@@ -27,7 +29,15 @@ public class Producto {
         this.stock = stock;
         this.categoria = categoria;
     }
+    
+    public Producto(String nombre, double precio, int stock, Categoria categoria){
+        this.nombre = nombre;
+        this.precio = precio;
+        this.stock = stock;
+        this.categoria = categoria;
+    }
 
+    // Métodos Getter y Setter
     public int getId() {
         return id;
     }
@@ -90,10 +100,16 @@ public class Producto {
 //        return Objects.equals(this.id, other.id);
 //    }
     
+    /**
+     * Método toString
+     * @return 
+     */
     @Override
     public String toString(){
         return "Producto: " + nombre + ", precio: " + precio + ", cantidad: " + stock + ", categoria: " + categoria;
     }
+    
+    // Métodos propios de la clase
 }
 
 

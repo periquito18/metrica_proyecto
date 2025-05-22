@@ -9,12 +9,14 @@ package entidades;
  * @author SGame
  */
 public class Producto_Carrito {
+    // Atributos
     private int id;
     private int carritoId;
     private int productoId;
     private int cantidad;
     private double precioUnidad;
 
+    // Constructores
     public Producto_Carrito() {
     }
 
@@ -25,7 +27,15 @@ public class Producto_Carrito {
         this.cantidad = cantidad;
         this.precioUnidad = precioUnidad;
     }
+    
+    public Producto_Carrito(int carritoId, int productoId, int cantidad, double precioUnidad) {
+        this.carritoId = carritoId;
+        this.productoId = productoId;
+        this.cantidad = cantidad;
+        this.precioUnidad = precioUnidad;
+    }
 
+    // Métodos Getter y Setter
     public int getId() {
         return id;
     }
@@ -67,7 +77,7 @@ public class Producto_Carrito {
     }
     
     /**
-     *
+     * Método toString
      * @return
      */
     @Override
@@ -96,4 +106,6 @@ public class Producto_Carrito {
 //        final Producto_Carrito other = (Producto_Carrito) obj;
 //        return this.id == other.id;
 //    }  
+    
+    // Métodos propios de la clase
 }

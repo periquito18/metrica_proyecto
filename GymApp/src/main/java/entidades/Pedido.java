@@ -11,12 +11,14 @@ import java.util.Objects;
  * @author SGame
  */
 public class Pedido {
+    // Atributos
     private int id;
     private int usuarioId;
     private LocalDateTime fecha;
     private double total;
     private Estado tipoEstado;
     
+    // Constructores
     public Pedido(){
         
     }
@@ -28,7 +30,15 @@ public class Pedido {
         this.total = total;
         this.tipoEstado = tipoEstado;
     }
+    
+    public Pedido(int usuarioId, LocalDateTime fecha, double total, Estado tipoEstado){
+        this.usuarioId = usuarioId;
+        this.fecha = fecha;
+        this.total = total;
+        this.tipoEstado = tipoEstado;
+    }
 
+    // Métodos Getter y Setter
     public int getId() {
         return id;
     }
@@ -91,8 +101,14 @@ public class Pedido {
 //        return Objects.equals(this.id, other.id);
 //    }
     
+    /**
+     * Método toString
+     * @return 
+     */
     @Override
     public String toString(){
         return "Pedido id: " + id + ", Usuario id: " + usuarioId + ", fecha: " + fecha + ", precio: " + total + "estado: " + tipoEstado;
     }
+    
+    // Métodos propios de la clase
 }
