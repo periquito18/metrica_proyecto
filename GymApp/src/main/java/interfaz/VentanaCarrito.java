@@ -4,12 +4,15 @@
  */
 package interfaz;
 
+import bbdd.DAOCarritos;
+import bbdd.DAOProductos;
+import bbdd.DAOUsuarios;
 import entidades.Carrito;
-import entidades.Producto;
+import entidades.InfoCarritoDTO;
 import entidades.Usuario;
 import java.awt.*;
-import java.time.LocalDateTime;
 import javax.swing.*;
+import java.util.List;
 
 /**
  *
@@ -20,14 +23,17 @@ public class VentanaCarrito extends javax.swing.JFrame {
     private Usuario usuario;
     private Carrito carrito;
 
+    private final DAOUsuarios daoUsuarios = new DAOUsuarios();
+    private final DAOCarritos daoCarrito = new DAOCarritos();
+    private final DAOProductos daoProductos = new DAOProductos();
+
     /**
      * Creates new form Carrito
      */
     public VentanaCarrito(Usuario usuario) {
-        this.usuario = usuario;
         initComponents();
-        setLocationRelativeTo(null);
         this.usuario = usuario;
+        setLocationRelativeTo(null);
         textoCarrito.setText("Carrito de  " + usuario.getNombre());
         panelcarrito.setLayout(new GridLayout(0, 5, 10, 10));
         cargarCarrito();
@@ -39,53 +45,59 @@ public class VentanaCarrito extends javax.swing.JFrame {
 
     private void cargarCarrito() {
         panelcarrito.removeAll();
-        carrito = daoCarrito.buscarPorEmail(usuario.getEmail());
-        if (carrito == null) {
-            carrito = new Carrito(usuario.getEmail(), LocalDateTime.now());
-            daoCarrito.insertarCarrito(carrito);
+
+        carrito = daoCarrito.obtenerOCrearCarrito(usuario.getId());
+
+        List<InfoCarritoDTO> productosInfo = daoCarrito.verCarrito(usuario.getId());
+
+        if (productosInfo == null || productosInfo.isEmpty()) {
+            JLabel labelVacio = new JLabel("El carrito está vacío, gilipollas.");
+            labelVacio.setHorizontalAlignment(SwingConstants.CENTER);
+            panelcarrito.add(labelVacio);
+        } else {
+            for (InfoCarritoDTO producto : productosInfo) {
+                JPanel panel = new JPanel();
+                panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+                panel.setPreferredSize(new Dimension(150, 200));
+                panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+
+                ImageIcon imagen = new ImageIcon(getClass().getResource("/img/" + producto.getNombreProducto() + ".jpg"));
+                Image imgproducto = imagen.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH);
+                JLabel Imagen = new JLabel(new ImageIcon(imgproducto));
+                Imagen.setPreferredSize(new Dimension(120, 100));
+                Imagen.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                JLabel Nombre = new JLabel(producto.getNombreProducto(), SwingConstants.CENTER);
+                JLabel Precio = new JLabel(String.format("%.2f €", producto.getPrecioUnidad(), SwingConstants.CENTER));
+                JLabel Cantidad = new JLabel("Cantidad: " + producto.getCantidad(), SwingConstants.CENTER);
+                Nombre.setAlignmentX(Component.CENTER_ALIGNMENT);
+                Precio.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                JButton Eliminar = new JButton("Eliminar del carrito");
+                Eliminar.setAlignmentX(Component.CENTER_ALIGNMENT);
+                Eliminar.addActionListener(e -> {
+                   // daoCarrito.eliminarProductoDelCarrito(carrito, producto);
+
+                });
+
+                panel.add(Imagen);
+                panel.add(Nombre);
+                panel.add(Precio);
+                panel.add(Eliminar);
+
+                panelcarrito.add(panel);
+            }
+            panelcarrito.revalidate();
+            panelcarrito.repaint();
         }
-        panelcarrito.removeAll();
-
-        for (Producto producto : carrito.getProductos()) {
-            JPanel panel = new JPanel();
-            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-            panel.setPreferredSize(new Dimension(150, 200));
-            panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-
-            ImageIcon imagen = new ImageIcon(getClass().getResource("/img/" + producto.getNombre() + ".jpg"));
-            Image imgproducto = imagen.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH);
-            JLabel Imagen = new JLabel(new ImageIcon(imgproducto));
-            Imagen.setPreferredSize(new Dimension(120, 100));
-            Imagen.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-            JLabel Nombre = new JLabel(producto.getNombre(), SwingConstants.CENTER);
-            JLabel Precio = new JLabel(String.format("%.2f €", producto.getPrecio(), SwingConstants.CENTER));
-            Nombre.setAlignmentX(Component.CENTER_ALIGNMENT);
-            Precio.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-            JButton Eliminar = new JButton("Eliminar del carrito");
-            Eliminar.setAlignmentX(Component.CENTER_ALIGNMENT);
-            Eliminar.addActionListener(e -> {
-                daoCarrito.eliminarProductoDelCarrito(carrito, producto);
-            });
-
-            panel.add(Imagen);
-            panel.add(Nombre);
-            panel.add(Precio);
-            panel.add(Eliminar);
-
-            panelcarrito.add(panel);
-        }
-        panelcarrito.revalidate();
-        panelcarrito.repaint();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.
      */
-    @SuppressWarnings("unchecked")
+    // </editor-fold>
+@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -157,27 +169,47 @@ public class VentanaCarrito extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonComprarActionPerformed
-        // TODO add your handling code here:
+        if (carrito == null) {
+            JOptionPane.showMessageDialog(this, "No tienes carrito, subnormal.");
+            return;
+        }
+        List<InfoCarritoDTO> productosInfo = daoCarrito.verCarrito(usuario.getId());
+        if (productosInfo == null || productosInfo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El carrito está vacío, gilipollas.");
+            return;
+        }
+        
+        //daoCarrito.vaciarCarrito(carrito.getId());
+
+        JOptionPane.showMessageDialog(this, "Compra realizada");
+        
+        
+        // Crea el nuevo carrito automáticamente con tu método robusto
+        carrito = daoCarrito.obtenerOCrearCarrito(usuario.getId());
+        
+        cargarCarrito();
     }//GEN-LAST:event_botonComprarActionPerformed
 
     private void vaciarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vaciarCarritoActionPerformed
-        daoCarrito.vaciarCarrito(carrito);
+        //daoCarrito.vaciarCarrito(carrito);
         cargarCarrito();
     }//GEN-LAST:event_vaciarCarritoActionPerformed
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
-        // TODO add your handling code here:
+        Principal principal = new Principal(usuario);
+        dispose();
+        principal.setVisible(true);
     }//GEN-LAST:event_VolverActionPerformed
 
     /**
