@@ -3,7 +3,8 @@
  */
 package entidades;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+//import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -14,7 +15,7 @@ public class Pedido {
     // Atributos
     private int id;
     private int usuarioId;
-    private LocalDateTime fecha;
+    private Date fecha;
     private double total;
     private Estado tipoEstado;
     
@@ -23,7 +24,7 @@ public class Pedido {
         
     }
     
-    public Pedido(int id, int usuarioId, LocalDateTime fecha, double total, Estado tipoEstado){
+    public Pedido(int id, int usuarioId, Date fecha, double total, Estado tipoEstado){
         this.id = id;
         this.usuarioId = usuarioId;
         this.fecha = fecha;
@@ -31,7 +32,7 @@ public class Pedido {
         this.tipoEstado = tipoEstado;
     }
     
-    public Pedido(int usuarioId, LocalDateTime fecha, double total, Estado tipoEstado){
+    public Pedido(int usuarioId, Date fecha, double total, Estado tipoEstado){
         this.usuarioId = usuarioId;
         this.fecha = fecha;
         this.total = total;
@@ -55,11 +56,11 @@ public class Pedido {
         this.usuarioId = usuarioId;
     }
 
-    public LocalDateTime getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDateTime fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 

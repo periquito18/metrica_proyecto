@@ -4,7 +4,8 @@
  */
 package entidades;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+//import java.time.LocalDateTime;
 
 /**
  *
@@ -14,20 +15,20 @@ public class Carrito {
     // Atributos
     private int id;
     private int usuarioId;
-    private LocalDateTime fecha;
+    private Date fecha;
     
     // Constructores
     public Carrito(){
         
     }
     
-    public Carrito(int id, int usuarioId, LocalDateTime fecha){
+    public Carrito(int id, int usuarioId, Date fecha){
         this.id = id;
         this.usuarioId = usuarioId;
         this.fecha = fecha;
     }
     
-    public Carrito(int usuarioId, LocalDateTime fecha){
+    public Carrito(int usuarioId, Date fecha){
         this.usuarioId = usuarioId;
         this.fecha = fecha;
     }
@@ -49,11 +50,11 @@ public class Carrito {
         this.usuarioId = usuarioId;
     }
 
-    public LocalDateTime getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDateTime fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
     

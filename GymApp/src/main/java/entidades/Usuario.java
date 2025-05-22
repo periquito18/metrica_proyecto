@@ -3,6 +3,9 @@
  */
 package entidades;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author SGame
@@ -15,12 +18,12 @@ public class Usuario {
     private String email;
     private String localidad;
     private boolean esAdmin;
-//    private List<Pedido> pedidos;
+    private List<Pedido> pedidos;
 
     // Constructores
-//    public Usuario(){
-//        pedidos = new ArryaList<>();
-//    }
+    public Usuario(){
+        pedidos = new ArrayList<>();
+    }
     
     public Usuario(String nombre, String password, String email, String localidad, boolean esAdmin){
         this.nombre = nombre;
@@ -37,7 +40,7 @@ public class Usuario {
         this.email = email;
         this.localidad = localidad;
         this.esAdmin = esAdmin;
-//        this.pedidos = new ArrayList<>();
+        this.pedidos = new ArrayList<>();
     }
 
     // Métodos Getter y Setter
@@ -89,6 +92,14 @@ public class Usuario {
         this.esAdmin = esAdmin;
     }
 
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+    
+public void agregarPedido(Pedido pedido){
+        this.pedidos.add(pedido);
+    }
+
 //    public List<Pedido> getPedidos() {
 //        return pedidos;
 //    }
@@ -133,4 +144,5 @@ public class Usuario {
 //    }
     
     // Métodos propios de la clase
+    
 }
