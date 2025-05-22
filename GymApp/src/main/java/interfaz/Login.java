@@ -141,7 +141,7 @@ public class Login extends javax.swing.JFrame {
             DAOUsuarios du = new DAOUsuarios();
             Usuario user = du.buscarPorEmail(correo);
             if (user == null || !user.getPassword().equals(password)) {
-                JOptionPane.showMessageDialog(this, "correo o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 if (user.isEsAdmin()) {
                     Administracion administracion = new Administracion(user);
