@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
 
 /**
  *
@@ -19,12 +20,31 @@ import javax.swing.*;
 public class Principal extends javax.swing.JFrame {
 
     private Usuario usuario;
+    private ArrayList<Producto> productos = new ArrayList<>();
 
     /**
      * Creates new form Principal
      */
     public Principal(Usuario usuario) {
         initComponents();
+
+        buscarpanel.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                buscarProductos();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                buscarProductos();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                 buscarProductos();
+            }
+        });
+        
         setLocationRelativeTo(null);
         this.usuario = usuario;
         etiquetaUsuario.setText("Bienvenido " + usuario.getNombre());
@@ -38,7 +58,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void cargarProducto() {
         panelproducto.removeAll();
-        ArrayList<Producto> productos = new ArrayList<>(); //DAOProductos.cargarproductos();
+        //DAOProductos.cargarproductos();
         for (Producto producto : productos) {
             JPanel panel = new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -65,6 +85,44 @@ public class Principal extends javax.swing.JFrame {
 
             panelproducto.add(panel);
         }
+        panelproducto.revalidate();
+        panelproducto.repaint();
+    }
+
+    private void buscarProductos() {
+        String textoBusqueda = buscarpanel.getText().trim().toLowerCase();
+        panelproducto.removeAll();
+
+        for (Producto producto : productos) {
+            if (producto.getNombre().toLowerCase().contains(textoBusqueda)) {
+                JPanel panel = new JPanel();
+                panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+                panel.setPreferredSize(new Dimension(150, 200));
+
+                ImageIcon imagen = new ImageIcon(getClass().getResource("/img/" + producto.getNombre() + ".jpg"));
+                Image imgproducto = imagen.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH);
+                JLabel Imagen = new JLabel(new ImageIcon(imgproducto));
+                Imagen.setPreferredSize(new Dimension(120, 100));
+                Imagen.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                JLabel Nombre = new JLabel(producto.getNombre(), SwingConstants.CENTER);
+                JLabel Precio = new JLabel(String.format("%.2f €", producto.getPrecio(), SwingConstants.CENTER));
+                Nombre.setAlignmentX(Component.CENTER_ALIGNMENT);
+                Precio.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                JButton añadirCarrito = new JButton("Añadir al carrito");
+                añadirCarrito.setAlignmentX(CENTER_ALIGNMENT);
+
+                panel.add(Imagen);
+                panel.add(Nombre);
+                panel.add(Precio);
+                panel.add(añadirCarrito);
+
+                panelproducto.add(panel);
+
+            }
+        }
+
         panelproducto.revalidate();
         panelproducto.repaint();
     }
@@ -97,6 +155,12 @@ public class Principal extends javax.swing.JFrame {
 
         buscartexto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         buscartexto.setText("Buscar");
+
+        buscarpanel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarpanelActionPerformed(evt);
+            }
+        });
 
         panelproducto.setBackground(new java.awt.Color(255, 255, 255));
         panelproducto.setLayout(null);
@@ -217,6 +281,10 @@ public class Principal extends javax.swing.JFrame {
         pedidos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pedidos.setVisible(true);
     }//GEN-LAST:event_pedidosActionPerformed
+
+    private void buscarpanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarpanelActionPerformed
+
+    }//GEN-LAST:event_buscarpanelActionPerformed
 
     /**
      * @param args the command line arguments
