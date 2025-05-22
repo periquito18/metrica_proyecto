@@ -47,7 +47,7 @@ public class DAOUsuarios {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                user = new Usuario(rs.getInt("id_usuario"), rs.getString("nombre"), rs.getString("password"), email, rs.getString("localidad"), rs.getBoolean("es_admin"));
+                user = new Usuario(rs.getInt("id_usuario"), rs.getString("nombre"), rs.getString("password"), rs.getString("email"), rs.getString("localidad"), rs.getBoolean("es_admin"));
             }
         } catch (SQLException e) {
             System.err.println("buscarPorEmail: " + e.getMessage());
@@ -84,7 +84,7 @@ public class DAOUsuarios {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("select * from usuarios");
             while (rs.next()) {
-                Usuario user = new Usuario(rs.getInt("id_usuario"), rs.getString("password"), rs.getString("nombre"), rs.getString("email"), rs.getString("localidad"), rs.getBoolean("es_admin"));
+                Usuario user = new Usuario(rs.getInt("id_usuario"), rs.getString("nombre"), rs.getString("password"), rs.getString("email"), rs.getString("localidad"), rs.getBoolean("es_admin"));
                 usuarios.add(user);
             }
         } catch (SQLException e) {

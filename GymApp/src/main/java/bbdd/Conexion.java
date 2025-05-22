@@ -12,7 +12,7 @@ import java.sql.SQLException;
  */
 public class Conexion {
     public static Connection conectarBD() throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "gymapp", "gymapp");
+        Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "gymapp2", "gymapp2");
         return conn;
     }
     
