@@ -4,6 +4,7 @@
  */
 package interfaz;
 
+import bbdd.DAOProductos;
 import entidades.Producto;
 import entidades.Usuario;
 import java.awt.*;
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
+import java.util.List;
 
 /**
  *
@@ -20,7 +22,8 @@ import javax.swing.event.DocumentEvent;
 public class Principal extends javax.swing.JFrame {
 
     private Usuario usuario;
-    private ArrayList<Producto> productos = new ArrayList<>();
+    DAOProductos daoProductos = new DAOProductos();
+    List<Producto> productos = daoProductos.listarProductos();
 
     /**
      * Creates new form Principal
@@ -58,7 +61,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void cargarProducto() {
         panelproducto.removeAll();
-        //DAOProductos.cargarproductos();
+
         for (Producto producto : productos) {
             JPanel panel = new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
