@@ -82,7 +82,7 @@ public class DAOUsuarios {
         try {
             conn = Conexion.conectarBD();
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select * from usuarios");
+            ResultSet rs = st.executeQuery("select * from usuario");
             while (rs.next()) {
                 Usuario user = new Usuario(rs.getInt("id_usuario"), rs.getString("nombre"), rs.getString("password"), rs.getString("email"), rs.getString("localidad"), rs.getBoolean("es_admin"));
                 usuarios.add(user);
