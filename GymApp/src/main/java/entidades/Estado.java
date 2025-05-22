@@ -13,8 +13,13 @@ public enum Estado {
     COMPLETADO,
     CANCELADO;
     
-    //¿Qué es? --> Método para convertir una cadena de texto al valor del enum
-//    public static Estado fromString(String nombre){
-//        return Estado.valueOf(nombre.toUpperCase());
-//    }
+    // Método para convertir una cadena de texto al valor del enum
+    public static Estado fromString(String nombre){
+        return Estado.valueOf(nombre.toUpperCase().replace(" ", "_"));
+    }
+    
+    @Override
+    public String toString() {
+        return name();
+    }
 }
