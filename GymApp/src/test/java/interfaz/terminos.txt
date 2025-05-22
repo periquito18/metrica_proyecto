@@ -1,0 +1,9 @@
+TÉRMINOS Y CONDICIONES DE USO
+
+        1. Al registrarse, usted acepta proporcionar datos verídicos.
+        2. El uso del sistema es exclusivo para fines permitidos por el desarrollador.
+        3. Su contraseña debe mantenerse en secreto.
+        4. Nos reservamos el derecho de modificar los presentes términos.
+        5. La aceptación de estos términos es obligatoria para el registro.
+
+        (c) 2025 - Sistema de Registro
