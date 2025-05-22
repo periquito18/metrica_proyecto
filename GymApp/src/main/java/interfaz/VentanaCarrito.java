@@ -4,7 +4,12 @@
  */
 package interfaz;
 
+import entidades.Carrito;
+import entidades.Producto;
 import entidades.Usuario;
+import java.awt.*;
+import java.time.LocalDateTime;
+import javax.swing.*;
 
 /**
  *
@@ -13,6 +18,7 @@ import entidades.Usuario;
 public class VentanaCarrito extends javax.swing.JFrame {
 
     private Usuario usuario;
+    private Carrito carrito;
 
     /**
      * Creates new form Carrito
@@ -20,10 +26,58 @@ public class VentanaCarrito extends javax.swing.JFrame {
     public VentanaCarrito(Usuario usuario) {
         this.usuario = usuario;
         initComponents();
+        setLocationRelativeTo(null);
+        this.usuario = usuario;
+        textoCarrito.setText("Carrito de  " + usuario.getNombre());
+        panelcarrito.setLayout(new GridLayout(0, 5, 10, 10));
+        cargarCarrito();
     }
 
     public VentanaCarrito() {
         this(null);
+    }
+
+    private void cargarCarrito() {
+        panelcarrito.removeAll();
+        carrito = daoCarrito.buscarPorEmail(usuario.getEmail());
+        if (carrito == null) {
+            carrito = new Carrito(usuario.getEmail(), LocalDateTime.now());
+            daoCarrito.insertarCarrito(carrito);
+        }
+        panelcarrito.removeAll();
+
+        for (Producto producto : carrito.getProductos()) {
+            JPanel panel = new JPanel();
+            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+            panel.setPreferredSize(new Dimension(150, 200));
+            panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+
+            ImageIcon imagen = new ImageIcon(getClass().getResource("/img/" + producto.getNombre() + ".jpg"));
+            Image imgproducto = imagen.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH);
+            JLabel Imagen = new JLabel(new ImageIcon(imgproducto));
+            Imagen.setPreferredSize(new Dimension(120, 100));
+            Imagen.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JLabel Nombre = new JLabel(producto.getNombre(), SwingConstants.CENTER);
+            JLabel Precio = new JLabel(String.format("%.2f €", producto.getPrecio(), SwingConstants.CENTER));
+            Nombre.setAlignmentX(Component.CENTER_ALIGNMENT);
+            Precio.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JButton Eliminar = new JButton("Eliminar del carrito");
+            Eliminar.setAlignmentX(Component.CENTER_ALIGNMENT);
+            Eliminar.addActionListener(e -> {
+                daoCarrito.eliminarProductoDelCarrito(carrito, producto);
+            });
+
+            panel.add(Imagen);
+            panel.add(Nombre);
+            panel.add(Precio);
+            panel.add(Eliminar);
+
+            panelcarrito.add(panel);
+        }
+        panelcarrito.revalidate();
+        panelcarrito.repaint();
     }
 
     /**
@@ -35,21 +89,96 @@ public class VentanaCarrito extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        textoCarrito = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        panelcarrito = new javax.swing.JPanel();
+        botonComprar = new javax.swing.JButton();
+        vaciarCarrito = new javax.swing.JButton();
+        Volver = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setLayout(null);
+
+        textoCarrito.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
+        textoCarrito.setText("jLabel1");
+        jPanel1.add(textoCarrito);
+        textoCarrito.setBounds(40, 20, 500, 60);
+
+        panelcarrito.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelcarritoLayout = new javax.swing.GroupLayout(panelcarrito);
+        panelcarrito.setLayout(panelcarritoLayout);
+        panelcarritoLayout.setHorizontalGroup(
+            panelcarritoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 498, Short.MAX_VALUE)
+        );
+        panelcarritoLayout.setVerticalGroup(
+            panelcarritoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 348, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(panelcarrito);
+
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(40, 100, 500, 350);
+
+        botonComprar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        botonComprar.setText("COMPRAR");
+        botonComprar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonComprarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonComprar);
+        botonComprar.setBounds(580, 310, 120, 23);
+
+        vaciarCarrito.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        vaciarCarrito.setText("Vaciar carrito");
+        vaciarCarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vaciarCarritoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(vaciarCarrito);
+        vaciarCarrito.setBounds(570, 190, 140, 28);
+
+        Volver.setText("Volver");
+        Volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VolverActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Volver);
+        Volver.setBounds(600, 30, 75, 23);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonComprarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonComprarActionPerformed
+
+    private void vaciarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vaciarCarritoActionPerformed
+        daoCarrito.vaciarCarrito(carrito);
+        cargarCarrito();
+    }//GEN-LAST:event_vaciarCarritoActionPerformed
+
+    private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_VolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -88,5 +217,12 @@ public class VentanaCarrito extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Volver;
+    private javax.swing.JButton botonComprar;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel panelcarrito;
+    private javax.swing.JLabel textoCarrito;
+    private javax.swing.JButton vaciarCarrito;
     // End of variables declaration//GEN-END:variables
 }

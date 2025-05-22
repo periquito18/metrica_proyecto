@@ -41,10 +41,10 @@ public class Principal extends javax.swing.JFrame {
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                 buscarProductos();
+                buscarProductos();
             }
         });
-        
+
         setLocationRelativeTo(null);
         this.usuario = usuario;
         etiquetaUsuario.setText("Bienvenido " + usuario.getNombre());
@@ -77,6 +77,13 @@ public class Principal extends javax.swing.JFrame {
 
             JButton añadirCarrito = new JButton("Añadir al carrito");
             añadirCarrito.setAlignmentX(CENTER_ALIGNMENT);
+            añadirCarrito.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //DAOCarrito.añadirAlCarrito();
+                    JOptionPane.showMessageDialog(null, producto.getNombre() + " añadido al carrito.");
+                }
+            });
 
             panel.add(Imagen);
             panel.add(Nombre);
@@ -112,6 +119,13 @@ public class Principal extends javax.swing.JFrame {
 
                 JButton añadirCarrito = new JButton("Añadir al carrito");
                 añadirCarrito.setAlignmentX(CENTER_ALIGNMENT);
+                añadirCarrito.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        //DAOCarrito.añadirAlCarrito();
+                        JOptionPane.showMessageDialog(null, producto.getNombre() + " añadido al carrito.");
+                    }
+                });
 
                 panel.add(Imagen);
                 panel.add(Nombre);
