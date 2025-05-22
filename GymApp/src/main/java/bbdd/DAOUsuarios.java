@@ -4,6 +4,7 @@
  */
 package bbdd;
 
+import util.Conexion;
 import entidades.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
