@@ -1,7 +1,7 @@
 /*
  * Conexion a la Base de Datos
  */
-package bbdd;
+package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

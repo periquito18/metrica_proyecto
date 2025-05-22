@@ -4,6 +4,7 @@
  */
 package bbdd;
 
+import util.Conexion;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

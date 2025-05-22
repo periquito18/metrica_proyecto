@@ -4,6 +4,7 @@
  */
 package bbdd;
 
+import util.Conexion;
 import entidades.Categoria;
 import entidades.Producto;
 import java.sql.Connection;
@@ -56,6 +57,25 @@ public class DAOProductos {
             Conexion.desconectarBD(conn);
         }
         return producto;
+    }
+    
+    public List<Producto> filtrarPorCategoria(Categoria categoria){
+        Connection conn = null;
+        List<Producto> lista = new ArrayList<>();
+        try{
+            conn = Conexion.conectarBD();
+            PreparedStatement ps = conn.prepareStatement("select * from producto where tipo_categoria = ?");
+            ps.setString(1, categoria.name());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                lista.add(new Producto(rs.getInt("id_producto"),rs.getString("nombre"), rs.getDouble("precio"), rs.getInt("stock"), Categoria.valueOf(rs.getString("tipo_categoria"))));
+            }
+        } catch(SQLException e){
+            System.err.println("buscarPorId: " + e.getMessage());
+        } finally{
+            Conexion.desconectarBD(conn);
+        }
+        return lista;
     }
     
     public void modificarStock(int id, int stock){

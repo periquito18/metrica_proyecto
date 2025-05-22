@@ -13,7 +13,14 @@ public enum Categoria {
     ROPA,
     ACCESORIOS;
     
-//    public static Categoria fromString(String nombre){
-//        return Categoria.valueOf(nombre.toUpperCase());
-//    }
+    public static Categoria fromString(String nombre){
+        return Categoria.valueOf(nombre.toUpperCase().replace(" ", "_"));
+    }
+
+    @Override
+    public String toString() {
+        return name();
+    }
+    
+    
 }
