@@ -6,6 +6,12 @@ package interfaz;
 
 import bbdd.DAOUsuarios;
 import entidades.Usuario;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +25,13 @@ public class Registro extends javax.swing.JFrame {
      */
     public Registro() {
         initComponents();
+        textoterminos2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        textoterminos2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                crearTerminos();
+            }
+        });
     }
 
     /**
@@ -43,6 +56,7 @@ public class Registro extends javax.swing.JFrame {
         terminos = new javax.swing.JCheckBox();
         textoterminos = new javax.swing.JLabel();
         crearcuentaregistro = new javax.swing.JButton();
+        textoterminos2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(570, 378));
@@ -85,7 +99,7 @@ public class Registro extends javax.swing.JFrame {
         });
 
         textoterminos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        textoterminos.setText("Al crear la cuenta de usuario, acepto los Términos y Condiciones");
+        textoterminos.setText("Al crear la cuenta de usuario, acepto los ");
 
         crearcuentaregistro.setBackground(new java.awt.Color(102, 102, 102));
         crearcuentaregistro.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
@@ -96,6 +110,9 @@ public class Registro extends javax.swing.JFrame {
                 crearcuentaregistroActionPerformed(evt);
             }
         });
+
+        textoterminos2.setForeground(new java.awt.Color(51, 51, 255));
+        textoterminos2.setText("Términos y Condiciones");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -112,7 +129,9 @@ public class Registro extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(terminos, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(textoterminos))
+                        .addComponent(textoterminos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textoterminos2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textousuario2, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -130,7 +149,7 @@ public class Registro extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(campolocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(crearcuentaregistro, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -167,7 +186,9 @@ public class Registro extends javax.swing.JFrame {
                         .addComponent(terminos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(textoterminos, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textoterminos, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textoterminos2))))
                 .addGap(18, 18, 18)
                 .addComponent(crearcuentaregistro)
                 .addContainerGap(67, Short.MAX_VALUE))
@@ -178,6 +199,33 @@ public class Registro extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void crearTerminos() {
+        String contenido = """
+                           TÉRMINOS Y CONDICIONES DE USO
+                           
+                                   1. Al registrarse, usted acepta proporcionar datos verídicos.
+                                   2. El uso del sistema es exclusivo para fines permitidos por el desarrollador.
+                                   3. Su contraseña debe mantenerse en secreto.
+                                   4. Nos reservamos el derecho de modificar los presentes términos.
+                                   5. La aceptación de estos términos es obligatoria para el registro.
+                           
+                                   (c) 2025 - Sistema de Registro
+                           """;
+        File archivo = new File("terminos.txt");
+        try {
+            if (!archivo.exists()) {
+                FileWriter fichero = new FileWriter(archivo);
+                fichero.write(contenido);
+                fichero.close();
+                JOptionPane.showMessageDialog(this, "Se ha creado un archivo con los términos en la ruta " + archivo.getAbsolutePath(), "Términos creados", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "El archivo ya existe en la ruta " + archivo.getAbsolutePath(), "Archivo existente", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al crear el archivo de Términos" + archivo.getAbsolutePath(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     private void crearcuentaregistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearcuentaregistroActionPerformed
         String usuario = campoUsuario.getText().trim();
@@ -272,6 +320,7 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JCheckBox terminos;
     private javax.swing.JLabel textoterminos;
+    private javax.swing.JLabel textoterminos2;
     private javax.swing.JLabel textousuario;
     private javax.swing.JLabel textousuario1;
     private javax.swing.JLabel textousuario2;
