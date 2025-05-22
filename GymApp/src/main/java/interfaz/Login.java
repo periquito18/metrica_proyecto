@@ -168,7 +168,6 @@ public class Login extends javax.swing.JFrame {
             public void windowClosed(java.awt.event.WindowEvent e) {
                 Login.this.setEnabled(true);
                 Login.this.toFront();
-                JOptionPane.showMessageDialog(registro, "Se ha producido un error al crear el usuario", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 

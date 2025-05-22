@@ -208,9 +208,7 @@ public class Registro extends javax.swing.JFrame {
             du.insertarUsuario(nuevo);
             JOptionPane.showMessageDialog(this, "La cuenta se ha creado correctamente", "Registro completado", JOptionPane.INFORMATION_MESSAGE);
 
-            Login login = new Login();
-            dispose();
-            login.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_crearcuentaregistroActionPerformed
 

@@ -27,12 +27,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.usuario = usuario;
-        //etiquetaUsuario.setText("Bienvenido " + usuario.getNombre());
-        if (usuario != null) {
-            etiquetaUsuario.setText("Bienvenido " + usuario.getNombre());
-        } else {
-            etiquetaUsuario.setText("Bienvenido Invitado");
-        }
+        etiquetaUsuario.setText("Bienvenido " + usuario.getNombre());
         panelproducto.setLayout(new GridLayout(0, 5, 10, 10));
         cargarProducto();
     }
