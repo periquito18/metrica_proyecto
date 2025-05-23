@@ -101,9 +101,9 @@ public class Principal extends javax.swing.JFrame {
                     int idProducto = producto.getId();
 
                     if (daoCarrito.productoEnCarrito(idUsuario, idProducto)) {
-                        daoCarrito.agregarProductoExistente(idUsuario, idProducto);
+                        daoCarrito.agregarProductoExistenteCarrito(idUsuario, idProducto);
                     } else {
-                        daoCarrito.agregarNuevoProducto(idUsuario, idProducto);
+                        daoCarrito.agregarProductoExistenteCarrito(idUsuario, idProducto);
                     }
 
                     JOptionPane.showMessageDialog(null, producto.getNombre() + " añadido al carrito.");
@@ -159,9 +159,9 @@ public class Principal extends javax.swing.JFrame {
                         int idProducto = producto.getId();
 
                         if (daoCarrito.productoEnCarrito(idUsuario, idProducto)) {
-                            daoCarrito.agregarProductoExistente(idUsuario, idProducto);
+                            daoCarrito.agregarProductoExistenteCarrito(idUsuario, idProducto);
                         } else {
-                            daoCarrito.agregarNuevoProducto(idUsuario, idProducto);
+                            daoCarrito.agregarProductoExistenteCarrito(idUsuario, idProducto);
                         }
 
                         JOptionPane.showMessageDialog(null, producto.getNombre() + " añadido al carrito.");
