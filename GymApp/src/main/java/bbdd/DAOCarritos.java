@@ -77,7 +77,7 @@ public class DAOCarritos {
         return carrito;
     }
 
-    public void agregarNuevoProducto(int id_usuario, int id_producto) {
+    public void agregarNuevoProductoCarrito(int id_usuario, int id_producto) {
         Connection conn = null;
         try {
             conn = Conexion.conectarBD();
@@ -95,7 +95,7 @@ public class DAOCarritos {
         }
     }
 
-    public void agregarProductoExistente(int id_usuario, int id_producto) {
+    public void agregarProductoExistenteCarrito(int id_usuario, int id_producto) {
         Connection conn = null;
         try {
             conn = Conexion.conectarBD();
@@ -184,7 +184,7 @@ public class DAOCarritos {
 //            System.err.println("agregarProductoExistente: " + e.getMessage());
 //        }
 //    }
-    public void eliminarProducto(int id_usuario, int id_producto) {
+    public void eliminarProductoCarrito(int id_usuario, int id_producto) {
         Connection conn = null;
         String sql = "update producto_carrito set cantidad = cantidad - 1 "
                 + "where id_carrito = (select id_carrito from carrito where id_usuario = ?) "
@@ -203,7 +203,7 @@ public class DAOCarritos {
         }
     }
 
-    public void eliminarProductoUnico(int id_usuario, int id_producto) {
+    public void eliminarProductoUnicoCarrito(int id_usuario, int id_producto) {
         Connection conn = null;
         String sql = "delete from producto_carrito "
                 + "where id_carrito = (select id_carrito from carrito where id_usuario = ?) "
