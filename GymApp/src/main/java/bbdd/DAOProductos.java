@@ -121,4 +121,50 @@ public class DAOProductos {
             Conexion.desconectarBD(conn);
         }
     }
+    
+//    public void agregarProducto(String nombre, double precio, int stock, Categoria categoria){
+//        
+//    }
+    
+    public void agregarProducto(Producto producto){
+        Connection conn = null;
+        try{
+            conn = Conexion.conectarBD();
+            PreparedStatement ps = conn.prepareStatement("insert into producto (NOMBRE, PRECIO, STOCK, TIPO_CATEGORIA)"
+                    + "values (?, ?, ?, ?)");
+            ps.setString(1, producto.getNombre());
+            ps.setDouble(2, producto.getPrecio());
+            ps.setInt(3, producto.getStock());
+            ps.setString(4, producto.getCategoria().name());
+            int filas = ps.executeUpdate();
+            if(filas > 0){
+                System.out.println("Producto agregado");
+            } else{
+                System.out.println("No se pudo agregar producto");
+            }
+        } catch(SQLException e){
+            System.err.println("agregarProducto: " + e.getMessage());
+        } finally{
+            Conexion.desconectarBD(conn);
+        }
+    }
+    
+    public void eliminarProducto(int id_producto){
+        Connection conn = null;
+        try{
+            conn = Conexion.conectarBD();
+            PreparedStatement ps = conn.prepareStatement("delete from producto where id_producto = ?");
+            ps.setInt(1, id_producto);
+            int filas = ps.executeUpdate();
+            if(filas > 0){
+                System.out.println("Producto eliminado");
+            } else{
+                System.out.println("No se pudo eliminar producto");
+            }
+        } catch(SQLException e){
+            System.err.println("eliminarProducto: " + e.getMessage());
+        } finally{
+            Conexion.desconectarBD(conn);
+        }
+    }
 }
