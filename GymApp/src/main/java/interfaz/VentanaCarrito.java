@@ -5,16 +5,18 @@
 package interfaz;
 
 import bbdd.DAOCarritos;
-import bbdd.DAOProductos;
-import bbdd.DAOUsuarios;
 import entidades.Carrito;
 import entidades.InfoCarritoDTO;
 import entidades.Usuario;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
+import java.sql.SQLException;
 import javax.swing.*;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,9 +29,6 @@ public class VentanaCarrito extends javax.swing.JFrame {
 
     private final DAOCarritos daoCarrito = new DAOCarritos();
 
-    /**
-     * Creates new form Carrito
-     */
     public VentanaCarrito(Usuario usuario) {
         initComponents();
         this.usuario = usuario;
@@ -47,11 +46,10 @@ public class VentanaCarrito extends javax.swing.JFrame {
         panelcarrito.removeAll();
 
         carrito = daoCarrito.obtenerOCrearCarrito(usuario.getId());
-
         List<InfoCarritoDTO> productosInfo = daoCarrito.verCarrito(usuario.getId());
 
         if (productosInfo == null || productosInfo.isEmpty()) {
-            JLabel labelVacio = new JLabel("El carrito está vacío.");
+            JLabel labelVacio = new JLabel(" El carrito está vacío.");
             labelVacio.setHorizontalAlignment(SwingConstants.CENTER);
             panelcarrito.add(labelVacio);
         } else {
@@ -61,45 +59,61 @@ public class VentanaCarrito extends javax.swing.JFrame {
                 panel.setPreferredSize(new Dimension(150, 200));
                 panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-                ImageIcon imagen = new ImageIcon(getClass().getResource("/img/" + producto.getNombreProducto() + ".jpg"));
+                // Insertar imagenes
+                URL location = getClass().getResource("/img/" + producto.getNombreProducto() + ".jpg");
+                ImageIcon imagen;
+                if (location != null) {
+                    imagen = new ImageIcon(location);
+                } else {
+                    System.err.println("Imagen no encontrada para: " + producto.getNombreProducto());
+                    imagen = new ImageIcon();
+                }
+
                 Image imgproducto = imagen.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH);
                 JLabel Imagen = new JLabel(new ImageIcon(imgproducto));
                 Imagen.setPreferredSize(new Dimension(120, 100));
                 Imagen.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+                // Etiquetas
                 JLabel Nombre = new JLabel(producto.getNombreProducto(), SwingConstants.CENTER);
-                JLabel Precio = new JLabel(String.format("%.2f €", producto.getPrecioUnidad(), SwingConstants.CENTER));
+                JLabel Precio = new JLabel(String.format("%.2f €", producto.getPrecioUnidad()), SwingConstants.CENTER);
+                JLabel Categoria = new JLabel("Categoría: " + producto.getCategoria().toString(), SwingConstants.CENTER);
                 JLabel Cantidad = new JLabel("Cantidad: " + producto.getCantidad(), SwingConstants.CENTER);
+
                 Nombre.setAlignmentX(Component.CENTER_ALIGNMENT);
                 Precio.setAlignmentX(Component.CENTER_ALIGNMENT);
+                Categoria.setAlignmentX(Component.CENTER_ALIGNMENT);
                 Cantidad.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+                // Botón eliminar
                 JButton Eliminar = new JButton("Eliminar del carrito");
                 Eliminar.setAlignmentX(Component.CENTER_ALIGNMENT);
                 Eliminar.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        //daoCarrito.eliminarProducto();
+                        if (producto.getCantidad() > 1) {
+                            daoCarrito.eliminarProductoCarrito(usuario.getId(), producto.getIdProducto());
+                        } else {
+                            daoCarrito.eliminarProductoUnicoCarrito(usuario.getId(), producto.getIdProducto());
+                        }
                         cargarCarrito();
                     }
-
                 });
 
+                // Agregar etiquetas al panel
                 panel.add(Imagen);
-
                 panel.add(Nombre);
-
+                panel.add(Categoria);
                 panel.add(Cantidad);
-
                 panel.add(Precio);
-
                 panel.add(Eliminar);
 
                 panelcarrito.add(panel);
             }
-            panelcarrito.revalidate();
-            panelcarrito.repaint();
         }
+
+        panelcarrito.revalidate();
+        panelcarrito.repaint();
     }
 
     /**
@@ -121,6 +135,7 @@ public class VentanaCarrito extends javax.swing.JFrame {
         Volver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setLayout(null);
 
@@ -192,33 +207,41 @@ public class VentanaCarrito extends javax.swing.JFrame {
 
     private void botonComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonComprarActionPerformed
         if (carrito == null) {
-            JOptionPane.showMessageDialog(this, "No tienes carrito, subnormal.");
+            JOptionPane.showMessageDialog(this, "No se ha encontrado un carrito.");
             return;
         }
         List<InfoCarritoDTO> productosInfo = daoCarrito.verCarrito(usuario.getId());
         if (productosInfo == null || productosInfo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "El carrito está vacío, gilipollas.");
+            JOptionPane.showMessageDialog(this, "El carrito está vacío.");
             return;
         }
 
-        //daoCarrito.vaciarCarrito(carrito.getId());
-        JOptionPane.showMessageDialog(this, "Compra realizada");
+        //daoCarrito.comprarCarrito(carrito.getId());
+        JOptionPane.showMessageDialog(this, "Compra realizada correctamente.");
 
         // Crea el nuevo carrito automáticamente con tu método robusto
         carrito = daoCarrito.obtenerOCrearCarrito(usuario.getId());
-
         cargarCarrito();
     }//GEN-LAST:event_botonComprarActionPerformed
 
     private void vaciarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vaciarCarritoActionPerformed
-        //daoCarrito.vaciarCarrito(carrito);
-        cargarCarrito();
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿Seguro que quieres vaciar el carrito?", "Confirmar vaciado", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (respuesta == JOptionPane.YES_OPTION) {
+            try {
+                daoCarrito.vaciarProductoCarrito(usuario.getId());
+                daoCarrito.vaciarCarrito(usuario.getId());
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaCarrito.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error al vaciar el carrito: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            cargarCarrito();
+        }
+
     }//GEN-LAST:event_vaciarCarritoActionPerformed
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
         Principal principal = new Principal(usuario);
         dispose();
-        principal.setVisible(true);
     }//GEN-LAST:event_VolverActionPerformed
 
     /**

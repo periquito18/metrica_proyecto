@@ -6,6 +6,7 @@ package bbdd;
 
 import util.Conexion;
 import entidades.Carrito;
+import entidades.Categoria;
 import entidades.InfoCarritoDTO;
 import java.sql.Connection;
 //import java.sql.Date;
@@ -28,13 +29,13 @@ public class DAOCarritos {
         List<InfoCarritoDTO> productos = new ArrayList<>();
         try {
             conn = Conexion.conectarBD();
-            PreparedStatement ps = conn.prepareStatement("select p.nommbre, pc.cantidad, pc.precio_unidad\n"
+            PreparedStatement ps = conn.prepareStatement("select p.id_producto, p.nombre, pc.cantidad, pc.precio_unidad, p.tipo_categoria\n"
                     + " from producto_carrito pc join carrito c on pc.id_carrito = c.id_carrito\n"
-                    + " join producto p on pc.id_producto = p.id_producto where c.id_usurio = ?");
+                    + " join producto p on pc.id_producto = p.id_producto where c.id_usuario = ?");
             ps.setInt(1, id_usuario);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                InfoCarritoDTO producto = new InfoCarritoDTO(rs.getString("nombre"), rs.getInt("cantidad"), rs.getDouble("precio_unidad"));
+                InfoCarritoDTO producto = new InfoCarritoDTO(rs.getInt("id_producto"), rs.getString("nombre"), rs.getInt("cantidad"), rs.getDouble("precio_unidad"), Categoria.fromString(rs.getString("tipo_categoria")));
                 productos.add(producto);
             }
         } catch (SQLException e) {
