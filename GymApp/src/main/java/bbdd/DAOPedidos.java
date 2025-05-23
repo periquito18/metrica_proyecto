@@ -8,11 +8,14 @@ import entidades.Estado;
 import entidades.InfoListaPedidosDTO;
 import entidades.InfoPedidoDTO;
 import entidades.Pedido;
+import entidades.Producto_Pedido;
 import java.sql.Connection;
+import java.sql.Date;
 //import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import util.Conexion;
@@ -80,6 +83,50 @@ public class DAOPedidos {
             Conexion.desconectarBD(conn);
         }
         return pedido;
+    }
+    
+    public int insertarPedido(int id_usuario, LocalDate fecha, double total, Estado estado) throws SQLException{
+        Connection conn = null;
+        try{
+            conn = Conexion.conectarBD();
+            PreparedStatement ps = conn.prepareStatement("insert into pedido (ID_USUARIO, FECHA, TOTAL, TIPO_ESTADO)"
+                    + "values (?, ?, ?, ?)");
+            ps.setInt(1, id_usuario);
+            ps.setDate(2, Date.valueOf(fecha));
+            ps.setDouble(3, total);
+            ps.setString(4, estado.name());
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt("id_pedido");
+            } else{
+                throw new SQLException("No se pudo insertar pedido");
+            }
+        } finally{
+            Conexion.desconectarBD(conn);
+        }
+    }
+    
+    public void insertarProductoPedido(Producto_Pedido producto){
+        Connection conn = null;
+        try{
+            conn = Conexion.conectarBD();
+            PreparedStatement ps = conn.prepareStatement("insert into producto_pedido (ID_PEDIDO, ID_PRODUCTO, CANTIDAD, PRECIO_UNIDAD)"
+                    + " values (?, ?, ?, ?)");
+            ps.setInt(1, producto.getPedidoId());
+            ps.setInt(2, producto.getProductoId());
+            ps.setInt(1, producto.getCantidad());
+            ps.setDouble(1, producto.getPrecioUnidad());
+            int filas = ps.executeUpdate();
+            if(filas > 0){
+                System.out.println("Producto insertado en Pedido");
+            } else{
+                System.out.println("No se pudo insertar producto en pedido");
+            }
+        } catch(SQLException e){
+            System.err.println("insertarProductoPedido: " + e.getMessage());
+        } finally{
+            Conexion.desconectarBD(conn);
+        }
     }
     
     public double calcularPrecioTotalPedido(int id_pedido){
