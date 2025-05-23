@@ -7,7 +7,7 @@ import java.sql.Statement;
 import util.Conexion;
 
 public class TestConexion {
-    public static void main(String[] args) {
+    public static void main(String[] args) { 
         try (Connection conn = Conexion.conectarBD()) {
             System.out.println("Conexión exitosa a la BD");
             Statement stmt = conn.createStatement();
