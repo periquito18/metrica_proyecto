@@ -11,6 +11,8 @@ import entidades.Carrito;
 import entidades.InfoCarritoDTO;
 import entidades.Usuario;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.util.List;
 
@@ -74,15 +76,23 @@ public class VentanaCarrito extends javax.swing.JFrame {
 
                 JButton Eliminar = new JButton("Eliminar del carrito");
                 Eliminar.setAlignmentX(Component.CENTER_ALIGNMENT);
-                Eliminar.addActionListener(e -> {
-                    // daoCarrito.eliminarProductoDelCarrito(carrito, producto);
+                Eliminar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        //daoCarrito.eliminarProducto();
+                        cargarCarrito();
+                    }
 
                 });
 
                 panel.add(Imagen);
+
                 panel.add(Nombre);
+
                 panel.add(Cantidad);
+
                 panel.add(Precio);
+
                 panel.add(Eliminar);
 
                 panelcarrito.add(panel);
@@ -256,4 +266,5 @@ public class VentanaCarrito extends javax.swing.JFrame {
     private javax.swing.JLabel textoCarrito;
     private javax.swing.JButton vaciarCarrito;
     // End of variables declaration//GEN-END:variables
+
 }
