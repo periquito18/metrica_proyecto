@@ -15,7 +15,9 @@
                 <exec.appArgs></exec.appArgs>
                 <exec.mainClass>interfaz.Login</exec.mainClass>
                 <exec.executable>java</exec.executable>
+
                 <exec.workingdir>C:\Proyectoprogramacion\metrica_proyecto\GymApp\src\test\javainterfaz</exec.workingdir>
+
             </properties>
         </action>
         <action>
@@ -34,7 +36,9 @@
                 <exec.mainClass>interfaz.Login</exec.mainClass>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
+
                 <exec.workingdir>C:\Proyectoprogramacion\metrica_proyecto\GymApp\src\test\javainterfaz</exec.workingdir>
+
             </properties>
         </action>
         <action>
@@ -51,7 +55,9 @@
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.mainClass>interfaz.Login</exec.mainClass>
                 <exec.executable>java</exec.executable>
+
                 <exec.workingdir>C:\Proyectoprogramacion\metrica_proyecto\GymApp\src\test\javainterfaz</exec.workingdir>
+
                 <exec.appArgs></exec.appArgs>
             </properties>
         </action>
