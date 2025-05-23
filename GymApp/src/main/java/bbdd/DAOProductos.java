@@ -122,6 +122,38 @@ public class DAOProductos {
         }
     }
     
+    public int getStock(int idProducto) throws SQLException{
+        Connection conn = null;
+        try{
+            conn = Conexion.conectarBD();
+            PreparedStatement ps = conn.prepareStatement("select stock from producto where id_producto = ?");
+            ps.setInt(1, idProducto);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt("stock");
+            } else{
+                throw new SQLException("No se pudo seleccionar el stock");
+            }
+        } finally{
+            Conexion.desconectarBD(conn);
+        }
+    }
+    
+    public void descontarStock(int idProducto, int cantidad){
+        Connection conn = null;
+        try{
+            conn = Conexion.conectarBD();
+            PreparedStatement ps = conn.prepareStatement("update producto set stock = stock - ? where id_producto = ?");
+            ps.setInt(1, cantidad);
+            ps.setInt(2, idProducto);
+            ps.executeUpdate();
+        } catch(SQLException e){
+            System.err.println("descontarStock: " + e.getMessage());
+        } finally{
+            Conexion.desconectarBD(conn);
+        }
+    }
+    
 //    public void agregarProducto(String nombre, double precio, int stock, Categoria categoria){
 //        
 //    }

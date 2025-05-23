@@ -1,4 +1,4 @@
-/*
+﻿/*
  * DAOCarritos
  * Operaciones de acceso a datos para la entidad Carrito
  */
@@ -8,6 +8,7 @@ import util.Conexion;
 import entidades.Carrito;
 import entidades.Categoria;
 import entidades.InfoCarritoDTO;
+import entidades.Producto_Carrito;
 import java.sql.Connection;
 //import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -24,12 +25,35 @@ import java.util.List;
  */
 public class DAOCarritos {
 
+    public List<Producto_Carrito> listarCarrito(int id_usuario){
+        Connection conn = null;
+        List<Producto_Carrito> productos = new ArrayList<>();
+        try{
+            conn = Conexion.conectarBD();
+            PreparedStatement ps = conn.prepareStatement("select pc.* from producto_carrito pc join carrito c on pc.id_carrito = c.id_carrito\n"
+                    + " join producto p on pc.id_producto = p.id_producto where c.id_usuario = ?");
+            ps.setInt(1, id_usuario);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Producto_Carrito producto = new Producto_Carrito(rs.getInt("id_producto_carrito"), rs.getInt("id_carrito"), rs.getInt("id_producto"), rs.getInt("cantidad"), rs.getDouble("precio_unidad"));
+                productos.add(producto);
+            }
+        } catch(SQLException e){
+            System.err.println("listarCarrito: " + e.getMessage());
+        } finally{
+            Conexion.desconectarBD(conn);
+        }
+        return productos;
+    }
+    
     public List<InfoCarritoDTO> verCarrito(int id_usuario) {
         Connection conn = null;
         List<InfoCarritoDTO> productos = new ArrayList<>();
         try {
             conn = Conexion.conectarBD();
+
             PreparedStatement ps = conn.prepareStatement("select p.id_producto, p.nombre, pc.cantidad, pc.precio_unidad, p.tipo_categoria\n"
+
                     + " from producto_carrito pc join carrito c on pc.id_carrito = c.id_carrito\n"
                     + " join producto p on pc.id_producto = p.id_producto where c.id_usuario = ?");
             ps.setInt(1, id_usuario);

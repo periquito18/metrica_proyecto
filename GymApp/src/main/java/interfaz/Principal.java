@@ -99,7 +99,7 @@ public class Principal extends javax.swing.JFrame {
                     DAOCarritos daoCarrito = new DAOCarritos();
                     int idUsuario = usuario.getId();
                     int idProducto = producto.getId();
-
+                    
                     if (daoCarrito.productoEnCarrito(idUsuario, idProducto)) {
                         daoCarrito.agregarProductoExistenteCarrito(idUsuario, idProducto);
                     } else {
