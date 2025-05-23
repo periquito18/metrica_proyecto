@@ -61,9 +61,13 @@ public class DAOProductos {
         return producto;
     }
 
+<<<<<<< Updated upstream
 
     public List<Producto> filtrarPorCategoria(Categoria categoria) {
 
+=======
+    public List<Producto> filtrarPorCategoria(Categoria categoria) {
+>>>>>>> Stashed changes
         Connection conn = null;
         List<Producto> lista = new ArrayList<>();
         try {
