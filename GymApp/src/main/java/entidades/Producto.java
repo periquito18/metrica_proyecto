@@ -10,7 +10,7 @@ import java.util.Objects;
  * @author SGame
  */
 public class Producto {
-    // Atributos
+    // Atributosa
     private int id;
     private String nombre;
     private double precio;
@@ -111,5 +111,3 @@ public class Producto {
     
     // Métodos propios de la clase
 }
-
-

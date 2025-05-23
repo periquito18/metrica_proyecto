@@ -51,7 +51,7 @@ public class VentanaCarrito extends javax.swing.JFrame {
         List<InfoCarritoDTO> productosInfo = daoCarrito.verCarrito(usuario.getId());
 
         if (productosInfo == null || productosInfo.isEmpty()) {
-            JLabel labelVacio = new JLabel("El carrito está vacío, gilipollas.");
+            JLabel labelVacio = new JLabel("El carrito está vacío.");
             labelVacio.setHorizontalAlignment(SwingConstants.CENTER);
             panelcarrito.add(labelVacio);
         } else {

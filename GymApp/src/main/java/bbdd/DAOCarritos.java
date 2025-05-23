@@ -119,6 +119,28 @@ public class DAOCarritos {
         }
     }
 
+    public boolean productoEnCarrito(int id_usuario, int id_producto) {
+        Connection conn = null;
+        boolean existe = false;
+        try {
+            conn = Conexion.conectarBD();
+            PreparedStatement ps = conn.prepareStatement(
+                    "SELECT 1 FROM producto_carrito pc "
+                    + "JOIN carrito c ON pc.id_carrito = c.id_carrito "
+                    + "WHERE c.id_usuario = ? AND pc.id_producto = ?"
+            );
+            ps.setInt(1, id_usuario);
+            ps.setInt(2, id_producto);
+            ResultSet rs = ps.executeQuery();
+            existe = rs.next(); // true si hay algún resultado
+        } catch (SQLException e) {
+            System.err.println("Error en productoEnCarrito: " + e.getMessage());
+        } finally {
+            Conexion.desconectarBD(conn);
+        }
+        return existe;
+    }
+
 //    public Producto_Carrito buscarProductoCarritoPorUsuario(int id_usuario, int id_producto){
 //        Connection conn = null;
 //        String sql = "select pc.* from producto_carrito pc " +
@@ -240,7 +262,7 @@ public class DAOCarritos {
         }
     }
 
-    public void vaciarCarrito(int id_usuario){
+    public void vaciarCarrito(int id_usuario) {
         Connection conn = null;
 
         try {
@@ -253,14 +275,14 @@ public class DAOCarritos {
             } else {
                 System.out.println("No se pudo vaciar carrito");
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.err.println("vaciarCarrito: " + e.getMessage());
-        } finally{
+        } finally {
             Conexion.desconectarBD(conn);
         }
 
     }
-    
+
 //    public void restablecerStockYVaciarCarrito(int idUsuario) throws SQLException {
 //        Connection conn = null;
 //        String sqlProductos = "SELECT pc.id_producto, pc.cantidad FROM Producto_Carrito pc " +
@@ -301,5 +323,4 @@ public class DAOCarritos {
 //            throw e;
 //        }
 //    }
-
 }

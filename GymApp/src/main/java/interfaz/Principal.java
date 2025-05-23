@@ -4,12 +4,14 @@
  */
 package interfaz;
 
+import bbdd.DAOCarritos;
 import bbdd.DAOProductos;
 import entidades.Producto;
 import entidades.Usuario;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -22,15 +24,18 @@ import java.util.List;
 public class Principal extends javax.swing.JFrame {
 
     private Usuario usuario;
-    DAOProductos daoProductos = new DAOProductos();
-    List<Producto> productos = daoProductos.listarProductos();
+    private List<Producto> productos = new ArrayList<>();
+    private DAOProductos daoProductos = new DAOProductos();
 
     /**
      * Creates new form Principal
      */
     public Principal(Usuario usuario) {
         initComponents();
-
+        this.usuario = usuario;
+        productos = daoProductos.listarProductos();
+        System.out.println(productos);
+        cargarProducto();
         buscarpanel.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             @Override
             public void insertUpdate(javax.swing.event.DocumentEvent e) {
@@ -49,10 +54,11 @@ public class Principal extends javax.swing.JFrame {
         });
 
         setLocationRelativeTo(null);
-        this.usuario = usuario;
         etiquetaUsuario.setText("Bienvenido " + usuario.getNombre());
         panelproducto.setLayout(new GridLayout(0, 5, 10, 10));
-        cargarProducto();
+        buscarProductos();
+        System.out.println("Total productos encontrados: " + productos.size());
+        productos.forEach(p -> System.out.println(p.getNombre() + " - " + p.getCategoria()));
     }
 
     public Principal() {
@@ -61,13 +67,19 @@ public class Principal extends javax.swing.JFrame {
 
     private void cargarProducto() {
         panelproducto.removeAll();
-
         for (Producto producto : productos) {
             JPanel panel = new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
             panel.setPreferredSize(new Dimension(150, 200));
 
-            ImageIcon imagen = new ImageIcon(getClass().getResource("/img/" + producto.getNombre() + ".jpg"));
+            URL location = getClass().getResource("/img/" + producto.getNombre() + ".jpg");
+            ImageIcon imagen;
+            if (location != null) {
+                imagen = new ImageIcon(location);
+            } else {
+                System.err.println("Imagen no encontrada para: " + producto.getNombre());
+                imagen = new ImageIcon(); // Imagen por defecto o vacía
+            }
             Image imgproducto = imagen.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH);
             JLabel Imagen = new JLabel(new ImageIcon(imgproducto));
             Imagen.setPreferredSize(new Dimension(120, 100));
@@ -80,10 +92,20 @@ public class Principal extends javax.swing.JFrame {
 
             JButton añadirCarrito = new JButton("Añadir al carrito");
             añadirCarrito.setAlignmentX(CENTER_ALIGNMENT);
+
             añadirCarrito.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //DAOCarrito.añadirAlCarrito();
+                    DAOCarritos daoCarrito = new DAOCarritos();
+                    int idUsuario = usuario.getId();
+                    int idProducto = producto.getId();
+
+                    if (daoCarrito.productoEnCarrito(idUsuario, idProducto)) {
+                        daoCarrito.agregarProductoExistente(idUsuario, idProducto);
+                    } else {
+                        daoCarrito.agregarNuevoProducto(idUsuario, idProducto);
+                    }
+
                     JOptionPane.showMessageDialog(null, producto.getNombre() + " añadido al carrito.");
                 }
             });
@@ -109,7 +131,14 @@ public class Principal extends javax.swing.JFrame {
                 panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
                 panel.setPreferredSize(new Dimension(150, 200));
 
-                ImageIcon imagen = new ImageIcon(getClass().getResource("/img/" + producto.getNombre() + ".jpg"));
+                URL location = getClass().getResource("/img/" + producto.getNombre() + ".jpg");
+                ImageIcon imagen;
+                if (location != null) {
+                    imagen = new ImageIcon(location);
+                } else {
+                    System.err.println("Imagen no encontrada para: " + producto.getNombre());
+                    imagen = new ImageIcon(); // Imagen por defecto o vacía
+                }
                 Image imgproducto = imagen.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH);
                 JLabel Imagen = new JLabel(new ImageIcon(imgproducto));
                 Imagen.setPreferredSize(new Dimension(120, 100));
@@ -125,7 +154,16 @@ public class Principal extends javax.swing.JFrame {
                 añadirCarrito.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        //DAOCarrito.añadirAlCarrito();
+                        DAOCarritos daoCarrito = new DAOCarritos();
+                        int idUsuario = usuario.getId();
+                        int idProducto = producto.getId();
+
+                        if (daoCarrito.productoEnCarrito(idUsuario, idProducto)) {
+                            daoCarrito.agregarProductoExistente(idUsuario, idProducto);
+                        } else {
+                            daoCarrito.agregarNuevoProducto(idUsuario, idProducto);
+                        }
+
                         JOptionPane.showMessageDialog(null, producto.getNombre() + " añadido al carrito.");
                     }
                 });
@@ -157,7 +195,7 @@ public class Principal extends javax.swing.JFrame {
         textogymapp = new javax.swing.JLabel();
         buscartexto = new javax.swing.JLabel();
         buscarpanel = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        panelScroll = new javax.swing.JScrollPane();
         panelproducto = new javax.swing.JPanel();
         cerrarsesion = new javax.swing.JButton();
         carrito = new javax.swing.JButton();
@@ -180,8 +218,19 @@ public class Principal extends javax.swing.JFrame {
         });
 
         panelproducto.setBackground(new java.awt.Color(255, 255, 255));
-        panelproducto.setLayout(null);
-        jScrollPane1.setViewportView(panelproducto);
+
+        javax.swing.GroupLayout panelproductoLayout = new javax.swing.GroupLayout(panelproducto);
+        panelproducto.setLayout(panelproductoLayout);
+        panelproductoLayout.setHorizontalGroup(
+            panelproductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 888, Short.MAX_VALUE)
+        );
+        panelproductoLayout.setVerticalGroup(
+            panelproductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 394, Short.MAX_VALUE)
+        );
+
+        panelScroll.setViewportView(panelproducto);
 
         cerrarsesion.setBackground(new java.awt.Color(102, 102, 102));
         cerrarsesion.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
@@ -234,7 +283,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(pedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
                 .addGap(42, 42, 42))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 890, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 890, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -259,7 +308,7 @@ public class Principal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                         .addComponent(etiquetaUsuario)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -345,7 +394,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton cerrarsesion;
     private javax.swing.JLabel etiquetaUsuario;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane panelScroll;
     private javax.swing.JPanel panelproducto;
     private javax.swing.JButton pedidos;
     private javax.swing.JLabel textogymapp;

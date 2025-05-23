@@ -77,6 +77,12 @@ public class Login extends javax.swing.JFrame {
         jLayeredPane1.setLayer(textocorreo, javax.swing.JLayeredPane.PALETTE_LAYER);
         jLayeredPane1.add(textocorreo);
         textocorreo.setBounds(30, 110, 70, 30);
+
+        campoCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoCorreoActionPerformed(evt);
+            }
+        });
         jLayeredPane1.setLayer(campoCorreo, javax.swing.JLayeredPane.PALETTE_LAYER);
         jLayeredPane1.add(campoCorreo);
         campoCorreo.setBounds(130, 110, 310, 30);
@@ -174,10 +180,15 @@ public class Login extends javax.swing.JFrame {
         registro.setVisible(true);
     }//GEN-LAST:event_crearcuentaActionPerformed
 
+    private void campoCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCorreoActionPerformed
+
+    }//GEN-LAST:event_campoCorreoActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

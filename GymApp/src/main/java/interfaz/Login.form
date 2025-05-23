@@ -85,6 +85,9 @@
           </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="campoCorreo">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoCorreoActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JLayeredPane.layer" type="java.lang.Integer" value="100"/>
           </AuxValues>
