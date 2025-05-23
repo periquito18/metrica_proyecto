@@ -76,6 +76,25 @@ public class DAOCarritos {
         }
         return carrito;
     }
+    
+    public int obtenerIdCarritoPorIdUsuario(int id_usuario){
+        Connection conn = null;
+        int id = 0;
+        try{
+            conn = Conexion.conectarBD();
+            PreparedStatement ps = conn.prepareStatement("select id_carrito from carrito where id_usuario = ?");
+            ps.setInt(1, id_usuario);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                id = rs.getInt("id_carrito");
+            }
+        } catch(SQLException e){
+            System.err.println("obtenerOCrearCarrito: " + e.getMessage());
+        } finally{
+            Conexion.desconectarBD(conn);
+        }
+        return id;
+    }
 
     public void agregarNuevoProductoCarrito(int id_usuario, int id_producto) {
         Connection conn = null;
