@@ -267,5 +267,4 @@ public class VentanaCarrito extends javax.swing.JFrame {
     private javax.swing.JButton vaciarCarrito;
     // End of variables declaration//GEN-END:variables
 
-
 }
