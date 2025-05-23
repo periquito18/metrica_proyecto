@@ -1,5 +1,5 @@
 /*
- * Clase Pedido DTO
+ * Clase Pedido DTO --> Capa intermedia
  */
 package entidades;
 
@@ -22,7 +22,6 @@ public class InfoPedidoDTO {
     }
     
     // Métodos Getter
-
     public String getNombreProducto() {
         return nombreProducto;
     }

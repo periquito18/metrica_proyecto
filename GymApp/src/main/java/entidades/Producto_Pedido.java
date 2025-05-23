@@ -3,9 +3,6 @@
  */
 package entidades;
 
-import java.util.Objects;
-import java.util.logging.Logger;
-
 /**
  *
  * @author SGame
@@ -79,40 +76,43 @@ public class Producto_Pedido {
         this.precioUnidad = precioUnidad;
     }
 
-//    @Override
-//    public int hashCode() {
-//        int hash = 7;
-//        hash = 13 * hash + Objects.hashCode(this.pedidoId);
-//        hash = 13 * hash + Objects.hashCode(this.productoId);
-//        return hash;
-//    }
-//
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
-//        if (getClass() != obj.getClass()) {
-//            return false;
-//        }
-//        final Carrito other = (Carrito) obj;
-//        if (!Objects.equals(this.pedidoId, other.pedidoId)) {
-//            return false;
-//        }
-//        return Objects.equals(this.productoId, other.productoId);
-//    }
-    
     /**
-     * Método toString
+     * Metodo hashCode
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + this.id;
+        return hash;
+    }
+
+    /**
+     * Metodo equals
+     * @param obj
+     * @return
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Producto_Pedido other = (Producto_Pedido) obj;
+        return this.id == other.id;
+    }
+
+    /**
+     * Metodo toString
      * @return 
      */
     @Override
     public String toString(){
         return "Pedido: " + pedidoId + ", producto: " + productoId + ", cantidad: " + cantidad + ", precio por unidad: " + precioUnidad;
     }
-    
-    // Métodos propios de la clase
 }

@@ -3,9 +3,11 @@
  */
 package entidades;
 
-import java.sql.Date;
-//import java.time.LocalDateTime;
-//import java.util.Objects;
+//import java.sql.Date;
+import java.time.LocalDate;
+//import java.util.ArrayList;
+//import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -15,16 +17,18 @@ public class Pedido {
     // Atributos
     private int id;
     private int usuarioId;
-    private Date fecha;
+    private LocalDate fecha;
     private double total;
     private Estado tipoEstado;
+//    private List<Producto> productos;
+//    ArrayList<Pedido> listaPedidos = new ArrayList<>();
     
     // Constructores
     public Pedido(){
         
     }
     
-    public Pedido(int id, int usuarioId, Date fecha, double total, Estado tipoEstado){
+    public Pedido(int id, int usuarioId, LocalDate fecha, double total, Estado tipoEstado){
         this.id = id;
         this.usuarioId = usuarioId;
         this.fecha = fecha;
@@ -32,7 +36,7 @@ public class Pedido {
         this.tipoEstado = tipoEstado;
     }
     
-    public Pedido(int usuarioId, Date fecha, double total, Estado tipoEstado){
+    public Pedido(int usuarioId, LocalDate fecha, double total, Estado tipoEstado){
         this.usuarioId = usuarioId;
         this.fecha = fecha;
         this.total = total;
@@ -56,11 +60,11 @@ public class Pedido {
         this.usuarioId = usuarioId;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -80,36 +84,43 @@ public class Pedido {
         this.tipoEstado = tipoEstado;
     }
 
-//    @Override
-//    public int hashCode() {
-//        int hash = 7;
-//        hash = 11 * hash + Objects.hashCode(this.id);
-//        return hash;
-//    }
-//
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
-//        if (getClass() != obj.getClass()) {
-//            return false;
-//        }
-//        final Pedido other = (Pedido) obj;
-//        return Objects.equals(this.id, other.id);
-//    }
+    /**
+     * Metodo hashCode
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 11 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    /**
+     * Metodo equals
+     * @param obj
+     * @return
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pedido other = (Pedido) obj;
+        return Objects.equals(this.id, other.id);
+    }
     
     /**
-     * Método toString
+     * Metodo toString
      * @return 
      */
     @Override
     public String toString(){
         return "Pedido id: " + id + ", Usuario id: " + usuarioId + ", fecha: " + fecha + ", precio: " + total + "estado: " + tipoEstado;
     }
-    
-    // Métodos propios de la clase
 }

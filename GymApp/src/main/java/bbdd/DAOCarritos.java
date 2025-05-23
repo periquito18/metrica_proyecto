@@ -7,13 +7,13 @@ package bbdd;
 import util.Conexion;
 import entidades.Carrito;
 import entidades.InfoCarritoDTO;
-import entidades.Producto_Carrito;
 import java.sql.Connection;
-import java.sql.Date;
+//import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+//import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,14 +56,14 @@ public class DAOCarritos {
             ps1.setInt(1, id_usuario);
             ResultSet rs1 = ps1.executeQuery();
             if (rs1.next()) {
-                carrito = new Carrito(rs1.getInt("id_carrito"), rs1.getInt("id_usuario"), rs1.getDate("fecha"));
+                carrito = new Carrito(rs1.getInt("id_carrito"), rs1.getInt("id_usuario"), rs1.getDate("fecha").toLocalDate());
             } else {
                 try {
                     PreparedStatement ps2 = conn.prepareStatement(slqCrear);
                     ps2.setInt(1, id_usuario);
                     ResultSet rs2 = ps2.executeQuery();
                     if (rs2.next()) {
-                        carrito = new Carrito(id_usuario, new Date(id_usuario, id_usuario, id_usuario));
+                        carrito = new Carrito(id_usuario, LocalDate.now());
                     }
                 } catch (SQLException e) {
                     System.err.println("obtenerOCrearCarrito: " + e.getMessage());

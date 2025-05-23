@@ -1,5 +1,5 @@
 /*
- * Clase Carrito DTO
+ * Clase Carrito DTO --> Capa Intermedia
  */
 package entidades;
 
@@ -22,7 +22,6 @@ public class InfoCarritoDTO {
     }
     
     // Métodos Getter
-
     public String getNombreProducto() {
         return nombreProducto;
     }
@@ -34,5 +33,4 @@ public class InfoCarritoDTO {
     public double getPrecioUnidad() {
         return precioUnidad;
     }
-    
 }

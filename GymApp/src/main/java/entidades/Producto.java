@@ -3,6 +3,7 @@
  */
 package entidades;
 
+//import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -10,12 +11,13 @@ import java.util.Objects;
  * @author SGame
  */
 public class Producto {
-    // Atributosa
+    // Atributos
     private int id;
     private String nombre;
     private double precio;
     private int stock;
     private Categoria categoria;
+//    ArrayList<Producto> listaProductos = new ArrayList<>();
     
     // Constructores
     public Producto(){
@@ -78,36 +80,43 @@ public class Producto {
         this.categoria = categoria;
     }
 
-//    @Override
-//    public int hashCode() {
-//        int hash = 3;
-//        hash = 11 * hash + Objects.hashCode(this.id);
-//        return hash;
-//    }
-//
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
-//        if (getClass() != obj.getClass()) {
-//            return false;
-//        }
-//        final Producto other = (Producto) obj;
-//        return Objects.equals(this.id, other.id);
-//    }
+    /**
+     * Metodo hashCode
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 11 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    /**
+     * Metodo equals
+     * @param obj
+     * @return
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Producto other = (Producto) obj;
+        return Objects.equals(this.id, other.id);
+    }
     
     /**
-     * Método toString
+     * Metodo toString
      * @return 
      */
     @Override
     public String toString(){
         return "Producto: " + nombre + ", precio: " + precio + ", cantidad: " + stock + ", categoria: " + categoria;
     }
-    
-    // Métodos propios de la clase
 }

@@ -1,9 +1,10 @@
 /*
- * Clase Pedido DTO
+ * Clase Pedido DTO --> Capa Intermedia
  */
 package entidades;
 
-import java.sql.Date;
+//import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -13,12 +14,12 @@ public class InfoListaPedidosDTO {
     
     //Atributos
     private int id;
-    private Date fecha;
+    private LocalDate fecha;
     private double total;
     private Estado tipoEstado;
     
     //Constructor
-    public InfoListaPedidosDTO(int id, Date fecha, double total, Estado tipoEstado){
+    public InfoListaPedidosDTO(int id, LocalDate fecha, double total, Estado tipoEstado){
         this.id = id;
         this.fecha = fecha;
         this.total = total;
@@ -26,12 +27,11 @@ public class InfoListaPedidosDTO {
     }
     
     //Métodos Getter
-
     public int getId() {
         return id;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
@@ -42,5 +42,4 @@ public class InfoListaPedidosDTO {
     public Estado getTipoEstado() {
         return tipoEstado;
     }
-    
 }

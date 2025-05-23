@@ -1,6 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Entidad Producto_Carrito
  */
 package entidades;
 
@@ -85,27 +84,34 @@ public class Producto_Carrito {
         return "Carrito id: " + carritoId + ", Producto id: " + productoId + ", cantidad: " + cantidad + ", precio por unidad: " + precioUnidad;
     }
 
-//    @Override
-//    public int hashCode() {
-//        int hash = 7;
-//        hash = 89 * hash + this.id;
-//        return hash;
-//    }
-//
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
-//        if (getClass() != obj.getClass()) {
-//            return false;
-//        }
-//        final Producto_Carrito other = (Producto_Carrito) obj;
-//        return this.id == other.id;
-//    }  
-    
-    // Métodos propios de la clase
+    /**
+     * Metodo hashCode
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + this.id;
+        return hash;
+    }
+
+    /**
+     * Metodo equals
+     * @param obj
+     * @return
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Producto_Carrito other = (Producto_Carrito) obj;
+        return this.id == other.id;
+    }  
 }

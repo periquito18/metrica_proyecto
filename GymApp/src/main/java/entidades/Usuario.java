@@ -5,12 +5,14 @@ package entidades;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
  * @author SGame
  */
 public class Usuario {
+
     // Atributos
     ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     private int id;
@@ -22,19 +24,19 @@ public class Usuario {
     private List<Pedido> pedidos;
 
     // Constructores
-    public Usuario(){
+    public Usuario() {
         pedidos = new ArrayList<>();
     }
-    
-    public Usuario(String nombre, String password, String email, String localidad, boolean esAdmin){
+
+    public Usuario(String nombre, String password, String email, String localidad, boolean esAdmin) {
         this.nombre = nombre;
         this.password = password;
         this.email = email;
         this.localidad = localidad;
         this.esAdmin = esAdmin;
-//        listaUsuarios.add(this);
+        listaUsuarios.add(this);
     }
-    
+
     public Usuario(int id, String nombre, String password, String email, String localidad, boolean esAdmin) {
         this.id = id;
         this.nombre = nombre;
@@ -97,54 +99,57 @@ public class Usuario {
     public List<Pedido> getPedidos() {
         return pedidos;
     }
-    
-public void agregarPedido(Pedido pedido){
+
+    public void addPedido(Pedido pedido) {
         this.pedidos.add(pedido);
     }
 
-//    public List<Pedido> getPedidos() {
-//        return pedidos;
-//    }
-//
-//    public void setPedidos(List<Pedido> pedidos) {
-//        this.pedidos = pedidos;
-//    }
-//
-//    public void agregarPedido(Pedido pedido){
-//        this.pedidos.add(pedido);
-//    }
-    
-    /**
-     * Método toString
-     * @return 
-     */
-    @Override
-    public String toString(){
-        return email;
+    public ArrayList<Usuario> getListaUsuarios() {
+        return listaUsuarios;
     }
 
-//    @Override
-//    public int hashCode() {
-//        int hash = 7;
-//        hash = 83 * hash + Objects.hashCode(this.id);
-//        return hash;
-//    }
+    public void addUsuario(Usuario usuario) {
+        this.listaUsuarios.add(usuario);
+    }
 
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
-//        if (getClass() != obj.getClass()) {
-//            return false;
-//        }
-//        final Usuario other = (Usuario) obj;
-//        return Objects.equals(this.id, other.id);
-//    }
-    
-    // Métodos propios de la clase
-    
+    /**
+     * Método toString
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        return "Nombre: " + nombre + ", email: " + email + ", localidad: " + localidad;
+    }
+
+    /**
+     * Metodo hashCode
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    /**
+     * Metodo equals
+     * @param obj
+     * @return
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        return Objects.equals(this.id, other.id);
+    }
 }

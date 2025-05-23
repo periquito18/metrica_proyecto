@@ -9,7 +9,7 @@ import entidades.InfoListaPedidosDTO;
 import entidades.InfoPedidoDTO;
 import entidades.Pedido;
 import java.sql.Connection;
-import java.sql.Date;
+//import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,7 +31,7 @@ public class DAOPedidos {
             PreparedStatement ps = conn.prepareStatement("select * from pedido");
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                Pedido pedido = new Pedido(rs.getInt("id_pedido"), rs.getInt("id_usuario"), rs.getDate("fecha"), rs.getDouble("total"), Estado.valueOf(rs.getString("tipo_Estado")));
+                Pedido pedido = new Pedido(rs.getInt("id_pedido"), rs.getInt("id_usuario"), rs.getDate("fecha").toLocalDate(), rs.getDouble("total"), Estado.valueOf(rs.getString("tipo_Estado")));
                 pedidos.add(pedido);
             }
         } catch(SQLException e){
@@ -50,7 +50,7 @@ public class DAOPedidos {
             PreparedStatement ps = conn.prepareStatement("select * from pedido where id_usuario = ?");
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                InfoListaPedidosDTO pedido = new InfoListaPedidosDTO(rs.getInt("id_pedido"), rs.getDate("fecha"), rs.getDouble("total"), Estado.valueOf(rs.getString("tipo_Estado")));
+                InfoListaPedidosDTO pedido = new InfoListaPedidosDTO(rs.getInt("id_pedido"), rs.getDate("fecha").toLocalDate(), rs.getDouble("total"), Estado.valueOf(rs.getString("tipo_Estado")));
                 pedidos.add(pedido);
             }
         } catch(SQLException e){
@@ -132,7 +132,7 @@ public class DAOPedidos {
             ps.setString(1, estado.name());
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                InfoListaPedidosDTO pedido = new InfoListaPedidosDTO(rs.getInt("id_pedido"), rs.getDate("fecha"), rs.getDouble("total"), Estado.valueOf(rs.getString("tipo_Estado")));
+                InfoListaPedidosDTO pedido = new InfoListaPedidosDTO(rs.getInt("id_pedido"), rs.getDate("fecha").toLocalDate(), rs.getDouble("total"), Estado.valueOf(rs.getString("tipo_Estado")));
                 pedidos.add(pedido);
             }
         } catch(SQLException e){
