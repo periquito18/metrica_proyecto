@@ -62,9 +62,13 @@ public class DAOProductos {
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
     public List<Producto> filtrarPorCategoria(Categoria categoria) {
 
+=======
+    public List<Producto> filtrarPorCategoria(Categoria categoria) {
+>>>>>>> Stashed changes
 =======
     public List<Producto> filtrarPorCategoria(Categoria categoria) {
 >>>>>>> Stashed changes
