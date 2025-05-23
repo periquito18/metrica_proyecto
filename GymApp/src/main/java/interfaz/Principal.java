@@ -103,7 +103,7 @@ public class Principal extends javax.swing.JFrame {
                     if (daoCarrito.productoEnCarrito(idUsuario, idProducto)) {
                         daoCarrito.agregarProductoExistenteCarrito(idUsuario, idProducto);
                     } else {
-                        daoCarrito.agregarProductoExistenteCarrito(idUsuario, idProducto);
+                        daoCarrito.agregarNuevoProductoCarrito(idUsuario, idProducto);
                     }
 
                     JOptionPane.showMessageDialog(null, producto.getNombre() + " añadido al carrito.");
@@ -161,7 +161,7 @@ public class Principal extends javax.swing.JFrame {
                         if (daoCarrito.productoEnCarrito(idUsuario, idProducto)) {
                             daoCarrito.agregarProductoExistenteCarrito(idUsuario, idProducto);
                         } else {
-                            daoCarrito.agregarProductoExistenteCarrito(idUsuario, idProducto);
+                            daoCarrito.agregarNuevoProductoCarrito(idUsuario, idProducto);
                         }
 
                         JOptionPane.showMessageDialog(null, producto.getNombre() + " añadido al carrito.");
