@@ -59,6 +59,7 @@ public class DAOProductos {
         return producto;
     }
     
+    //Sobra por que tienes en memoria lo mismo
     public List<Producto> filtrarPorCategoria(Categoria categoria){
         Connection conn = null;
         List<Producto> lista = new ArrayList<>();

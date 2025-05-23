@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class Usuario {
     // Atributos
+    ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     private int id;
     private String nombre;
     private String password;
@@ -31,6 +32,7 @@ public class Usuario {
         this.email = email;
         this.localidad = localidad;
         this.esAdmin = esAdmin;
+//        listaUsuarios.add(this);
     }
     
     public Usuario(int id, String nombre, String password, String email, String localidad, boolean esAdmin) {
