@@ -28,7 +28,7 @@ public class Login extends javax.swing.JFrame {
         ajustarImagen(imageninicio);
 
     }
-
+    //Ajuste de la imagen para que se vea completa
     public void ajustarImagen(JLabel jlabel) {
         // Recuperamos el objeto ImageIcon del jLabel
         ImageIcon iconoImagen = (ImageIcon) jlabel.getIcon();
@@ -139,6 +139,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarActionPerformed
+        // Inicio la sesion del usuario comprabando en la base de datps si estyos existen
         String correo = campoCorreo.getText().trim();
         String password = campoPassword.getText().trim();
         if (correo.isEmpty() || password.isBlank()) {

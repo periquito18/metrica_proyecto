@@ -5,20 +5,15 @@
 package interfaz;
 
 import bbdd.DAOCarritos;
-import bbdd.DAOPedidos;
 import bbdd.PedidoService;
 import entidades.Carrito;
-import entidades.Estado;
 import entidades.InfoCarritoDTO;
-import entidades.Pedido;
-import entidades.Producto_Pedido;
 import entidades.Usuario;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import javax.swing.*;
 import java.util.List;
 import java.util.logging.Level;
@@ -50,7 +45,7 @@ public class VentanaCarrito extends javax.swing.JFrame {
 
     private void cargarCarrito() {
         panelcarrito.removeAll();
-
+        //Creacion del carrito y obtención de productos
         carrito = daoCarrito.obtenerOCrearCarrito(usuario.getId());
         List<InfoCarritoDTO> productosInfo = daoCarrito.verCarrito(usuario.getId());
 
@@ -58,7 +53,7 @@ public class VentanaCarrito extends javax.swing.JFrame {
             JLabel labelVacio = new JLabel(" El carrito está vacío.");
             labelVacio.setHorizontalAlignment(SwingConstants.CENTER);
             panelcarrito.add(labelVacio);
-        } else {
+        } else {   
             for (InfoCarritoDTO producto : productosInfo) {
                 JPanel panel = new JPanel();
                 panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -210,8 +205,9 @@ public class VentanaCarrito extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //Boton comprar productos del carrito y generar pedido
     private void botonComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonComprarActionPerformed
+         // Mensajes carrtitoa vacio
         if (carrito == null) {
             JOptionPane.showMessageDialog(this, "No se ha encontrado un carrito.");
             return;
@@ -221,6 +217,7 @@ public class VentanaCarrito extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "El carrito está vacío.");
             return;
         }
+        //Inserción y creación del pedido
         System.out.println("ID del usuario al insertar pedido: " + usuario.getId());
         PedidoService pedidoService = new PedidoService();
         try {
@@ -238,7 +235,7 @@ public class VentanaCarrito extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_botonComprarActionPerformed
-
+     // Vaciado del carrito mediante botón
     private void vaciarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vaciarCarritoActionPerformed
         int respuesta = JOptionPane.showConfirmDialog(this, "¿Seguro que quieres vaciar el carrito?", "Confirmar vaciado", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (respuesta == JOptionPane.YES_OPTION) {
@@ -253,7 +250,7 @@ public class VentanaCarrito extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_vaciarCarritoActionPerformed
-
+    // Volver a la pestaña anterior
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
         Principal principal = new Principal(usuario);
         dispose();

@@ -36,6 +36,8 @@ public class Principal extends javax.swing.JFrame {
         productos = daoProductos.listarProductos();
         System.out.println(productos);
         cargarProducto();
+        
+        // Listener para filtrar productos en tiempo real
         buscarpanel.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             @Override
             public void insertUpdate(javax.swing.event.DocumentEvent e) {
@@ -64,14 +66,16 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         this(null);
     }
-
+    
+    //Cargar y mostrar todos los productos
     private void cargarProducto() {
         panelproducto.removeAll();
         for (Producto producto : productos) {
             JPanel panel = new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
             panel.setPreferredSize(new Dimension(150, 200));
-
+            
+            // Cargar imágenes de los productos
             URL location = getClass().getResource("/img/" + producto.getNombre() + ".jpg");
             ImageIcon imagen;
             if (location != null) {
@@ -84,22 +88,25 @@ public class Principal extends javax.swing.JFrame {
             JLabel Imagen = new JLabel(new ImageIcon(imgproducto));
             Imagen.setPreferredSize(new Dimension(120, 100));
             Imagen.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+            
+            // Etiquetas
             JLabel Nombre = new JLabel(producto.getNombre(), SwingConstants.CENTER);
             JLabel Precio = new JLabel(String.format("%.2f €", producto.getPrecio(), SwingConstants.CENTER));
             Nombre.setAlignmentX(Component.CENTER_ALIGNMENT);
             Precio.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+            
+            // Boton añadir al carrito
             JButton añadirCarrito = new JButton("Añadir al carrito");
             añadirCarrito.setAlignmentX(CENTER_ALIGNMENT);
-
+            
+            // Comprobación para saber si el producto esta en el carrito
             añadirCarrito.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     DAOCarritos daoCarrito = new DAOCarritos();
                     int idUsuario = usuario.getId();
                     int idProducto = producto.getId();
-
+                    
                     if (daoCarrito.productoEnCarrito(idUsuario, idProducto)) {
                         daoCarrito.agregarProductoExistenteCarrito(idUsuario, idProducto);
                     } else {
@@ -120,7 +127,7 @@ public class Principal extends javax.swing.JFrame {
         panelproducto.revalidate();
         panelproducto.repaint();
     }
-
+    //Filtrar los productos por el campo texto
     private void buscarProductos() {
         String textoBusqueda = buscarpanel.getText().trim().toLowerCase();
         panelproducto.removeAll();

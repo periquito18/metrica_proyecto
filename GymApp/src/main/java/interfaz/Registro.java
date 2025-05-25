@@ -201,6 +201,7 @@ public class Registro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void crearTerminos() {
+        // Creacon del fichero de terminos y contenido
         String contenido = """
                            TÉRMINOS Y CONDICIONES DE USO
                            
@@ -228,6 +229,7 @@ public class Registro extends javax.swing.JFrame {
     }
 
     private void crearcuentaregistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearcuentaregistroActionPerformed
+        //Creación de la cuenta y restricciones de los campos
         String usuario = campoUsuario.getText().trim();
         String correo = campocorreo.getText().trim();
         String localidad = campolocalidad.getText().trim();
