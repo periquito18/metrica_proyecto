@@ -78,7 +78,7 @@ public class Principal extends javax.swing.JFrame {
                 imagen = new ImageIcon(location);
             } else {
                 System.err.println("Imagen no encontrada para: " + producto.getNombre());
-                imagen = new ImageIcon(); 
+                imagen = new ImageIcon();
             }
             Image imgproducto = imagen.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH);
             JLabel Imagen = new JLabel(new ImageIcon(imgproducto));
@@ -99,7 +99,7 @@ public class Principal extends javax.swing.JFrame {
                     DAOCarritos daoCarrito = new DAOCarritos();
                     int idUsuario = usuario.getId();
                     int idProducto = producto.getId();
-                    
+
                     if (daoCarrito.productoEnCarrito(idUsuario, idProducto)) {
                         daoCarrito.agregarProductoExistenteCarrito(idUsuario, idProducto);
                     } else {
@@ -130,8 +130,8 @@ public class Principal extends javax.swing.JFrame {
                 JPanel panel = new JPanel();
                 panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
                 panel.setPreferredSize(new Dimension(150, 200));
-                
-                 // Insertar imagenes
+
+                // Insertar imagenes
                 URL location = getClass().getResource("/img/" + producto.getNombre() + ".jpg");
                 ImageIcon imagen;
                 if (location != null) {
@@ -144,7 +144,7 @@ public class Principal extends javax.swing.JFrame {
                 JLabel Imagen = new JLabel(new ImageIcon(imgproducto));
                 Imagen.setPreferredSize(new Dimension(120, 100));
                 Imagen.setAlignmentX(Component.CENTER_ALIGNMENT);
-                
+
                 //Etiquetas
                 JLabel Nombre = new JLabel(producto.getNombre(), SwingConstants.CENTER);
                 JLabel Precio = new JLabel(String.format("%.2f €", producto.getPrecio(), SwingConstants.CENTER));
@@ -152,7 +152,7 @@ public class Principal extends javax.swing.JFrame {
                 Nombre.setAlignmentX(Component.CENTER_ALIGNMENT);
                 Precio.setAlignmentX(Component.CENTER_ALIGNMENT);
                 Categoria.setAlignmentX(Component.CENTER_ALIGNMENT);
-                
+
                 //Boton añadir al carrito
                 JButton añadirCarrito = new JButton("Añadir al carrito");
                 añadirCarrito.setAlignmentX(CENTER_ALIGNMENT);
@@ -172,7 +172,7 @@ public class Principal extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, producto.getNombre() + " añadido al carrito.");
                     }
                 });
-                
+
                 //Agragar etiquetas al panel
                 panel.add(Imagen);
                 panel.add(Nombre);
