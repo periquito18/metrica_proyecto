@@ -114,8 +114,8 @@ public class DAOPedidos {
                     + " values (?, ?, ?, ?)");
             ps.setInt(1, producto.getPedidoId());
             ps.setInt(2, producto.getProductoId());
-            ps.setInt(1, producto.getCantidad());
-            ps.setDouble(1, producto.getPrecioUnidad());
+            ps.setInt(3, producto.getCantidad());
+            ps.setDouble(4, producto.getPrecioUnidad());
             int filas = ps.executeUpdate();
             if(filas > 0){
                 System.out.println("Producto insertado en Pedido");

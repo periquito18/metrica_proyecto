@@ -5,14 +5,20 @@
 package interfaz;
 
 import bbdd.DAOCarritos;
+import bbdd.DAOPedidos;
+import bbdd.PedidoService;
 import entidades.Carrito;
+import entidades.Estado;
 import entidades.InfoCarritoDTO;
+import entidades.Pedido;
+import entidades.Producto_Pedido;
 import entidades.Usuario;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import javax.swing.*;
 import java.util.List;
 import java.util.logging.Level;
@@ -215,13 +221,23 @@ public class VentanaCarrito extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "El carrito está vacío.");
             return;
         }
+        System.out.println("ID del usuario al insertar pedido: " + usuario.getId());
+        PedidoService pedidoService = new PedidoService();
+        try {
+            boolean exito = pedidoService.finalizarCompraService(usuario.getId());
+            if (exito) {
+                // Recarga carrito y UI
+                carrito = daoCarrito.obtenerOCrearCarrito(usuario.getId());
+                cargarCarrito();
+                JOptionPane.showMessageDialog(this, "Compra realizada correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al procesar la compra.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage());
+            e.printStackTrace();
+        }
 
-        //daoCarrito.comprarCarrito(carrito.getId());
-        JOptionPane.showMessageDialog(this, "Compra realizada correctamente.");
-
-        // Crea el nuevo carrito automáticamente con tu método robusto
-        carrito = daoCarrito.obtenerOCrearCarrito(usuario.getId());
-        cargarCarrito();
     }//GEN-LAST:event_botonComprarActionPerformed
 
     private void vaciarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vaciarCarritoActionPerformed
