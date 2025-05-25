@@ -225,8 +225,7 @@ public class VentanaCarrito extends javax.swing.JFrame {
         PedidoService pedidoService = new PedidoService();
         try {
             boolean exito = pedidoService.finalizarCompraService(usuario.getId());
-            if (exito) {
-                // Recarga carrito y UI
+            if (exito) { 
                 carrito = daoCarrito.obtenerOCrearCarrito(usuario.getId());
                 cargarCarrito();
                 JOptionPane.showMessageDialog(this, "Compra realizada correctamente.");
