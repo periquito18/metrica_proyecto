@@ -3,6 +3,7 @@
  */
 package bbdd;
 
+import java.util.Arrays;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -43,7 +44,7 @@ public class DAOAuxiliarTest {
     public void testListarCategorias() {
         System.out.println("listarCategorias");
         DAOAuxiliar instance = new DAOAuxiliar();
-        List<String> expResult = null;
+        List<String> expResult = Arrays.asList("ALIMENTACION", "SUPLEMENTOS", "ROPA", "ACCESORIOS");
         List<String> result = instance.listarCategorias();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
@@ -57,7 +58,7 @@ public class DAOAuxiliarTest {
     public void testListarEstados() {
         System.out.println("listarEstados");
         DAOAuxiliar instance = new DAOAuxiliar();
-        List<String> expResult = null;
+        List<String> expResult = Arrays.asList("PENDIENTE", "EN_PROCESO", "COMPLETADO", "CANCELADO");
         List<String> result = instance.listarEstados();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
