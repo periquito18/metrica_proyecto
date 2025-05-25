@@ -40,49 +40,89 @@ public class Producto {
     }
 
     // Métodos Getter y Setter
+    /**
+     * Devuelve el identificador del producto
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Modifica el identificador del usuario
+     * @param id nuevo identificador del usuario
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Devuelve el nombre del producto
+     * @return nombre
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Modifica el nombre del producto
+     * @param nombre nuevo nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     * Devuelve el precio del producto
+     * @return precio
+     */
     public double getPrecio() {
         return precio;
     }
 
+    /**
+     * Modifica el precio del producto
+     * @param precio nuevo precio
+     */
     public void setPrecio(double precio) {
         this.precio = precio;
     }
 
+    /**
+     * Devuelve el inventario del producto
+     * @return stock
+     */
     public int getStock() {
         return stock;
     }
 
+    /**
+     * Modifica el inventario del producto
+     * @param stock nuevo inventario
+     */
     public void setStock(int stock) {
         this.stock = stock;
     }
 
+    /**
+     * Devuelve la categoria de un producto
+     * @return objeto Categoria
+     */
     public Categoria getCategoria() {
         return categoria;
     }
 
+    /**
+     * Modifica la categoria de un producto
+     * @param categoria 
+     */
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
     /**
      * Metodo hashCode
-     * @return
+     * @return hash 
      */
     @Override
     public int hashCode() {
@@ -94,7 +134,7 @@ public class Producto {
     /**
      * Metodo equals
      * @param obj
-     * @return
+     * @return boolean 
      */
     @Override
     public boolean equals(Object obj) {
@@ -113,7 +153,7 @@ public class Producto {
     
     /**
      * Metodo toString
-     * @return 
+     * @return cadena de texto con información del producto
      */
     @Override
     public String toString(){

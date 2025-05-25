@@ -27,18 +27,34 @@ public class InfoListaPedidosDTO {
     }
     
     //Métodos Getter
+    /**
+     * Devuelve identificador del objeto InfoListaPedidosDTO
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Devuelve la fecha de un pedido
+     * @return fecha
+     */
     public LocalDate getFecha() {
         return fecha;
     }
 
+    /**
+     * Devuelve el precio total de un pedido
+     * @return total
+     */
     public double getTotal() {
         return total;
     }
 
+    /**
+     * Devuelve el estado de un pedido
+     * @return tipoEstado
+     */
     public Estado getTipoEstado() {
         return tipoEstado;
     }

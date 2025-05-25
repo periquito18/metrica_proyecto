@@ -36,49 +36,89 @@ public class Producto_Pedido {
     }
 
     // Métodos Getter y Setter
+    /**
+     * Devuelve identificador del producto_pedido
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Modifica el identificador del producto_pedido
+     * @param id nuevo identificador del producto_pedido
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Devuelve el identificador del pedido
+     * @return pedidoId
+     */
     public int getPedidoId() {
         return pedidoId;
     }
 
+    /**
+     * Modifica el identificador de pedido
+     * @param pedidoId nuevo identificador de pedido
+     */
     public void setPedidoId(int pedidoId) {
         this.pedidoId = pedidoId;
     }
 
+    /**
+     * Devuelve el identificador del producto
+     * @return productoId
+     */
     public int getProductoId() {
         return productoId;
     }
 
+    /**
+     * Modifica el identificador de producto
+     * @param productoId nuevo identificador de producto
+     */
     public void setProductoId(int productoId) {
         this.productoId = productoId;
     }
 
+    /**
+     * Devuelve la cantidad de un producto en un pedido
+     * @return cantidad
+     */
     public int getCantidad() {
         return cantidad;
     }
 
+    /**
+     * Modifica la cantidad de un producto en un pedido
+     * @param cantidad nueva cantidad
+     */
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
+    /**
+     * Devuelve el precio por unidad de un producto
+     * @return precioUnidad
+     */
     public double getPrecioUnidad() {
         return precioUnidad;
     }
 
+    /**
+     * Modifica el precio por unidad de un producto
+     * @param precioUnidad nuevo precioUnidad
+     */
     public void setPrecioUnidad(double precioUnidad) {
         this.precioUnidad = precioUnidad;
     }
 
     /**
      * Metodo hashCode
-     * @return
+     * @return hash
      */
     @Override
     public int hashCode() {
@@ -90,7 +130,7 @@ public class Producto_Pedido {
     /**
      * Metodo equals
      * @param obj
-     * @return
+     * @return boolean
      */
     @Override
     public boolean equals(Object obj) {
@@ -109,7 +149,7 @@ public class Producto_Pedido {
 
     /**
      * Metodo toString
-     * @return 
+     * @return cadena de texto con información del Producto_Pedido
      */
     @Override
     public String toString(){

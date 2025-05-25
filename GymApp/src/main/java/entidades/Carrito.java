@@ -3,7 +3,6 @@
  */
 package entidades;
 
-//import java.sql.Date;
 import java.time.LocalDate;
 //import java.util.List;
 
@@ -35,33 +34,57 @@ public class Carrito {
     }
 
     // Métodos Getter y Setter
+    /**
+     * Devuelve el identificador del carrito
+     * @return id 
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Modifica el identificador del carrito
+     * @param id nuevo identificador del carrito
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Devuelve el identificador del usuario del carrito
+     * @return usuarioId
+     */
     public int getUsuarioId() {
         return usuarioId;
     }
 
+    /**
+     * Modifica el identificador del usuario del carrito
+     * @param usuarioId nuevo identificador del usuario del carrito
+     */
     public void setUsuarioId(int usuarioId) {
         this.usuarioId = usuarioId;
     }
 
+    /**
+     * Devuelve la fecha del carrito
+     * @return fecha
+     */
     public LocalDate getFecha() {
         return fecha;
     }
 
+    /**
+     * Modifica la fecha del carrito
+     * @param fecha nueva fecha del carrito
+     */
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
     
     /**
      * Metodo toString
-     * @return
+     * @return cadena de texto con información del carrito
      */
     @Override
     public String toString(){
@@ -70,7 +93,7 @@ public class Carrito {
 
     /**
      * Metodo hashCode
-     * @return
+     * @return hash
      */
     @Override
     public int hashCode() {
@@ -82,7 +105,7 @@ public class Carrito {
     /**
      * Metodo equals
      * @param obj
-     * @return
+     * @return boolean
      */
     @Override
     public boolean equals(Object obj) {

@@ -27,6 +27,11 @@ import java.sql.PreparedStatement;
  */
 public class DAOCarritos {
 
+    /**
+     * Devuelve una lista con los productos de un carrito
+     * @param id_usuario identificador del usuario
+     * @return lista de Producto_Carrito
+     */
     public List<Producto_Carrito> listarCarrito(int id_usuario){
         Connection conn = null;
         List<Producto_Carrito> productos = new ArrayList<>();
@@ -48,6 +53,11 @@ public class DAOCarritos {
         return productos;
     }
     
+    /**
+     * Devuelve una lista modificada con los productos del carrito
+     * @param id_usuario identificador del usuario
+     * @return lista de InfoCarritoDTO
+     */
     public List<InfoCarritoDTO> verCarrito(int id_usuario) {
         Connection conn = null;
         List<InfoCarritoDTO> productos = new ArrayList<>();
@@ -72,6 +82,11 @@ public class DAOCarritos {
         return productos;
     }
 
+    /**
+     * Crea u obtiene el carrito de un cliente
+     * @param id_usuario identificador del usuario
+     * @return objeto Carrito
+     */
     public Carrito obtenerOCrearCarrito(int id_usuario) {
         Connection conn = null;
         Carrito carrito = null;
@@ -104,6 +119,11 @@ public class DAOCarritos {
         return carrito;
     }
     
+    /**
+     * Devuelve el id de un carrito
+     * @param id_usuario identificador del usuario
+     * @return identificador del carrito
+     */
     public int obtenerIdCarritoPorIdUsuario(int id_usuario){
         Connection conn = null;
         int id = 0;
@@ -123,6 +143,11 @@ public class DAOCarritos {
         return id;
     }
 
+    /**
+     * Agrega un nuevo producto al carrito
+     * @param id_usuario identificador del usuario
+     * @param id_producto identificador del producto
+     */
     public void agregarNuevoProductoCarrito(int id_usuario, int id_producto) {
         Connection conn = null;
         try {
@@ -141,6 +166,11 @@ public class DAOCarritos {
         }
     }
 
+    /**
+     * Aumenta la cantidad en uno de un producto existente en un carrito
+     * @param id_usuario identificador del usuario
+     * @param id_producto identificador del producto
+     */
     public void agregarProductoExistenteCarrito(int id_usuario, int id_producto) {
         Connection conn = null;
         try {
@@ -165,6 +195,12 @@ public class DAOCarritos {
         }
     }
 
+    /**
+     * Indica si un producto se encuentra en un carrito
+     * @param id_usuario identificador del usuario
+     * @param id_producto identificador del producto
+     * @return booleano
+     */
     public boolean productoEnCarrito(int id_usuario, int id_producto) {
         Connection conn = null;
         boolean existe = false;
@@ -230,6 +266,12 @@ public class DAOCarritos {
 //            System.err.println("agregarProductoExistente: " + e.getMessage());
 //        }
 //    }
+    
+    /**
+     * Elimina un producto de un carrito
+     * @param id_usuario identificador del usuario
+     * @param id_producto identificador del producto
+     */
     public void eliminarProductoCarrito(int id_usuario, int id_producto) {
         Connection conn = null;
         String sql = "update producto_carrito set cantidad = cantidad - 1 "
@@ -249,6 +291,11 @@ public class DAOCarritos {
         }
     }
 
+    /**
+     * Reduce en uno la cantidad de un producto en un carrito
+     * @param id_usuario identificador del usuario
+     * @param id_producto identificador del producto
+     */
     public void eliminarProductoUnicoCarrito(int id_usuario, int id_producto) {
         Connection conn = null;
         String sql = "delete from producto_carrito "
@@ -268,6 +315,11 @@ public class DAOCarritos {
         }
     }
 
+    /**
+     * Devuelve el precio total del carrito
+     * @param id_usuario identificador del usuario
+     * @return precio total
+     */
     public double calcularPrecioTotal(int id_usuario) {
         Connection conn = null;
         try {
@@ -287,6 +339,11 @@ public class DAOCarritos {
         return 0.0;
     }
 
+    /**
+     * Vacia la tabla Producto_Carrito de la base de datos
+     * @param idUsuario identificador del usuario
+     * @throws SQLException 
+     */
     public void vaciarProductoCarrito(int idUsuario) throws SQLException {
         Connection conn = null;
 
@@ -308,6 +365,10 @@ public class DAOCarritos {
         }
     }
 
+    /**
+     * Vacia la Carrito de la base de datos
+     * @param id_usuario identificador del usuario
+     */
     public void vaciarCarrito(int id_usuario) {
         Connection conn = null;
 

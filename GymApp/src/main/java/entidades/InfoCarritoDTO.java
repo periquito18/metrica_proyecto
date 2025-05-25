@@ -22,27 +22,46 @@ public class InfoCarritoDTO {
         this.nombreProducto = nombreProducto;
         this.cantidad = cantidad;
         this.precioUnidad = precioUnidad;
-        this.categoria = categoria;
-        
+        this.categoria = categoria; 
     }
-
+    
+    // Métodos Getter
+    /**
+     * Devuelve la categoria de un producto
+     * @return objeto Categoria
+     */
     public Categoria getCategoria() {
         return categoria;
     }
 
+    /**
+     * Devuele el identificador de un producto
+     * @return idProducto
+     */
     public int getIdProducto() {
         return idProducto;
     }
     
-    // Métodos Getter
+    /**
+     * Devuelve el nombre del producto
+     * @return nombreProducto
+     */
     public String getNombreProducto() {
         return nombreProducto;
     }
 
+    /**
+     * Devuelve la cantidad de un producto en un carrito
+     * @return cantidad
+     */
     public int getCantidad() {
         return cantidad;
     }
 
+    /**
+     * Devuelve el precio por cada unidad de producto de un producto
+     * @return precioUnidad
+     */
     public double getPrecioUnidad() {
         return precioUnidad;
     }

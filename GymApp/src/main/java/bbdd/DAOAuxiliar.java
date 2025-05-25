@@ -18,6 +18,10 @@ import java.util.List;
  */
 public class DAOAuxiliar {
     
+    /**
+     * Devuelve una lista con las categorías
+     * @return lista de los nombres de las categorías
+     */
     public List<String> listarCategorias(){
         Connection conn = null;
         List<String> listaCategoria = new ArrayList<>();
@@ -36,7 +40,11 @@ public class DAOAuxiliar {
         }   
         return listaCategoria;
     }
-
+    
+    /**
+     * Devuelve una lista con los estados
+     * @return lista de los nombres de los estados
+     */
     public List<String> listarEstados(){
         Connection conn = null;
         List<String> listaEstado = new ArrayList<>();

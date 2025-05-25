@@ -20,6 +20,11 @@ import java.util.List;
  */
 public class DAOUsuarios {
     
+    /**
+     * Devuelve un usuario segun su id
+     * @param id identificador del usuario
+     * @return objeto Usuario
+     */
     public Usuario buscarPorId(String id) {
         Usuario user = null;
         Connection conn = null;
@@ -39,6 +44,11 @@ public class DAOUsuarios {
         return user;
     }
     
+    /**
+     * Devuelve un usuario segun su email
+     * @param email email del usuario
+     * @return objeto Usuario
+     */
     public Usuario buscarPorEmail(String email) {
         Usuario user = null;
         Connection conn = null;
@@ -58,6 +68,10 @@ public class DAOUsuarios {
         return user;
     }
     
+    /**
+     * Agrega un nuevo usuario al producto
+     * @param user nuevo Usuario
+     */
     public void insertarUsuario(Usuario user) {
         Connection conn = null;
         try {
@@ -77,6 +91,10 @@ public class DAOUsuarios {
         }
     }
     
+    /**
+     * Muestra una lista de usuario
+     * @return lista Usuario
+     */
     public List<Usuario> consultarUsuarios() {
         Connection conn = null;
         List<Usuario> usuarios = new ArrayList();

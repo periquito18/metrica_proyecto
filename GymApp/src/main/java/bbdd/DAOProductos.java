@@ -21,6 +21,10 @@ import java.util.List;
  */
 public class DAOProductos {
 
+    /**
+     * Devuelve una lista de productos
+     * @return lista de Producto
+     */
     public List<Producto> listarProductos() {
         List<Producto> productos = new ArrayList<>();
        
@@ -42,6 +46,11 @@ public class DAOProductos {
         return productos;
     }
 
+    /**
+     * Devuelve un objeto Producto
+     * @param id identificador del producto
+     * @return objeto Producto
+     */
     public Producto buscarPorId(int id) {
         Producto producto = null;
         Connection conn = null;
@@ -62,6 +71,11 @@ public class DAOProductos {
     }
 
 
+    /**
+     * Muestra una lista de productos segun su categoria
+     * @param categoria objeto Categoria
+     * @return lista Producto
+     */
     public List<Producto> filtrarPorCategoria(Categoria categoria) {
 
         Connection conn = null;
@@ -82,6 +96,11 @@ public class DAOProductos {
         return lista;
     }
 
+    /**
+     * Modifica el inventario de un producto
+     * @param id identificador del producto
+     * @param stock nueva cantidad de inventario del producto
+     */
     public void modificarStock(int id, int stock) {
         Connection conn = null;
         try {
@@ -102,6 +121,11 @@ public class DAOProductos {
         }
     }
 
+    /**
+     * Modifica el precio de un producto
+     * @param id identificador del producto
+     * @param precio nuevo precio del producto
+     */
     public void modificarPrecio(int id, double precio) {
         Connection conn = null;
         try {
@@ -122,6 +146,12 @@ public class DAOProductos {
         }
     }
     
+    /**
+     * Devuelve el inventario de un producto
+     * @param idProducto identificador del producto
+     * @return inventario del producto
+     * @throws SQLException 
+     */
     public int getStock(int idProducto) throws SQLException{
         Connection conn = null;
         try{
@@ -139,6 +169,11 @@ public class DAOProductos {
         }
     }
     
+    /**
+     * Descuenta el inventario de un producto segun la cantidad comprada por un cliente
+     * @param idProducto identificador del producto
+     * @param cantidad cantidad del producto en carrito
+     */
     public void descontarStock(int idProducto, int cantidad){
         Connection conn = null;
         try{
@@ -158,6 +193,10 @@ public class DAOProductos {
 //        
 //    }
     
+    /**
+     * Agrega un producto al sistema
+     * @param producto nuevo Producto
+     */
     public void agregarProducto(Producto producto){
         Connection conn = null;
         try{
@@ -181,6 +220,10 @@ public class DAOProductos {
         }
     }
     
+    /**
+     * Elimina un producto del sistema
+     * @param id_producto identificador del producto
+     */
     public void eliminarProducto(int id_producto){
         Connection conn = null;
         try{

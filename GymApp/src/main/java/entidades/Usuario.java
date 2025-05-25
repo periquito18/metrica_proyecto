@@ -48,74 +48,137 @@ public class Usuario {
     }
 
     // Métodos Getter y Setter
+    /**
+     * Devuelve el identificador del usuario
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Modifica el identificador del usuario
+     * @param id nuevo identificador del usuario
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Devuelve el nombre del usuario
+     * @return nombre
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Modifica el nombre del usuario
+     * @param nombre nuevo nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     * Devuelve la contraseña del usuario
+     * @return password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Modifica la contraseña del usuario
+     * @param password nueva password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Devuelve el email del usuario
+     * @return email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Modifica el email del usuario
+     * @param email nuevo email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Devuelve la localidad del usuario
+     * @return localidad
+     */
     public String getLocalidad() {
         return localidad;
     }
 
+    /**
+     * Modifica la localidad del usuario
+     * @param localidad nueva localidad
+     */
     public void setLocalidad(String localidad) {
         this.localidad = localidad;
     }
 
+    /**
+     * Indica si el usuario es administrador o no
+     * @return esAdmin
+     */
     public boolean isEsAdmin() {
         return esAdmin;
     }
 
+    /**
+     * Modifica si el usuario es administrador o no
+     * @param esAdmin nuevo esAdmin
+     */
     public void setEsAdmin(boolean esAdmin) {
         this.esAdmin = esAdmin;
     }
 
+    /**
+     * Devuelve una lista de pedidos del usuario
+     * @return pedidos
+     */
     public List<Pedido> getPedidos() {
         return pedidos;
     }
 
+    /**
+     * Añade un pedido a la lista de pedidos
+     * @param pedido nuevo Pedido
+     */
     public void addPedido(Pedido pedido) {
         this.pedidos.add(pedido);
     }
 
+    /**
+     * Devuelve una lista de usuarios
+     * @return listaUsuarios
+     */
     public ArrayList<Usuario> getListaUsuarios() {
         return listaUsuarios;
     }
 
+    /**
+     * Añade un usuario a la lista de usuarios
+     * @param usuario nuevo Usuario
+     */
     public void addUsuario(Usuario usuario) {
         this.listaUsuarios.add(usuario);
     }
 
     /**
      * Método toString
-     *
-     * @return
+     * @return cadena de texto con información del pedido
      */
     @Override
     public String toString() {
@@ -124,7 +187,7 @@ public class Usuario {
 
     /**
      * Metodo hashCode
-     * @return
+     * @return hash
      */
     @Override
     public int hashCode() {
@@ -136,7 +199,7 @@ public class Usuario {
     /**
      * Metodo equals
      * @param obj
-     * @return
+     * @return booleano
      */
     @Override
     public boolean equals(Object obj) {

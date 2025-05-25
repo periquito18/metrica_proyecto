@@ -22,14 +22,26 @@ public class InfoPedidoDTO {
     }
     
     // Métodos Getter
+    /**
+     * Devuelve el nombre de un producto en un pedido
+     * @return nombreProducto
+     */
     public String getNombreProducto() {
         return nombreProducto;
     }
 
+    /**
+     * Devuelve la cantidad de un producto en un pedido
+     * @return cantidad
+     */
     public int getCantidad() {
         return cantidad;
     }
 
+    /**
+     * Devuelve el precio por unidad de un producto en un pedido
+     * @return precioUnidad
+     */
     public double getPrecioUnidad() {
         return precioUnidad;
     }

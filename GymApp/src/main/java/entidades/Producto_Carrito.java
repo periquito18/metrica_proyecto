@@ -35,49 +35,89 @@ public class Producto_Carrito {
     }
 
     // Métodos Getter y Setter
+    /**
+     * Devuelve el identificador del producto_carrito
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Modifica el identificador del producot_carrito
+     * @param id nuevo identificador producto_Carrito
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Devuelve el identificador del Carrito
+     * @return carritoId
+     */
     public int getCarritoId() {
         return carritoId;
     }
 
+    /**
+     * Modifica el identificador del carrito
+     * @param carritoId nuevo identificador del carrito
+     */
     public void setCarritoId(int carritoId) {
         this.carritoId = carritoId;
     }
 
+    /**
+     * Devuelve el identificador del producto
+     * @return productoId
+     */
     public int getProductoId() {
         return productoId;
     }
 
+    /**
+     * Modifica el identificador del producto
+     * @param productoId nuevo identificador del producto
+     */
     public void setProductoId(int productoId) {
         this.productoId = productoId;
     }
 
+    /**
+     * Devuelve la cantidad de un producto en un pedido
+     * @return cantidad
+     */
     public int getCantidad() {
         return cantidad;
     }
 
+    /**
+     * Modifica la cantidad de un producto en un pedido
+     * @param cantidad nueva cantidad
+     */
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
+    /**
+     * Devuelve el precio del producto
+     * @return precioUnidad
+     */
     public double getPrecioUnidad() {
         return precioUnidad;
     }
 
+    /**
+     * Modifica el precio del producto
+     * @param precioUnidad nuevo precioUnidad
+     */
     public void setPrecioUnidad(double precioUnidad) {
         this.precioUnidad = precioUnidad;
     }
     
     /**
      * Método toString
-     * @return
+     * @return cadena de texto con información del Producto_Carrito
      */
     @Override
     public String toString(){
@@ -86,7 +126,7 @@ public class Producto_Carrito {
 
     /**
      * Metodo hashCode
-     * @return
+     * @return hash
      */
     @Override
     public int hashCode() {
@@ -98,7 +138,7 @@ public class Producto_Carrito {
     /**
      * Metodo equals
      * @param obj
-     * @return
+     * @return boolean
      */
     @Override
     public boolean equals(Object obj) {

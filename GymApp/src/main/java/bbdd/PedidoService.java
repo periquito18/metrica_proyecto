@@ -22,6 +22,11 @@ public class PedidoService {
     private final DAOCarritos DAOcarrito = new DAOCarritos();
     private final DAOProductos DAOproducto = new DAOProductos();
 
+    /**
+     * Indica si se ha conseguido finalizar la compra de un usuario
+     * @param id_usuario identificador del usuario
+     * @return booleano
+     */
     public boolean finalizarCompraService(int id_usuario) {
         Connection conn = null;
         try {

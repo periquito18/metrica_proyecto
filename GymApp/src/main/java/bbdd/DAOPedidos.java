@@ -26,6 +26,10 @@ import util.Conexion;
  */
 public class DAOPedidos {
     
+    /**
+     * Devuelve una lista de pedidos
+     * @return lista de Pedido
+     */
     public List<Pedido> listarPedidos(){
         Connection conn = null;
         List<Pedido> pedidos = new ArrayList<>();
@@ -45,6 +49,11 @@ public class DAOPedidos {
         return pedidos;
     }
     
+    /**
+     * Devuelve una lista modificada con los pedidos de un usuario
+     * @param id_usuario identificador del usuario
+     * @return lista de InfoListaPedidosDTO
+     */
     public List<InfoListaPedidosDTO> listarPedidosPorUsuario(int id_usuario){
         Connection conn = null;
         List<InfoListaPedidosDTO> pedidos = new ArrayList<>();
@@ -64,6 +73,11 @@ public class DAOPedidos {
         return pedidos;
     }
     
+    /**
+     * Devuelve la información modificada del pedido
+     * @param id_pedido identificador del pedido
+     * @return objeto InfoPedidoDTO
+     */
     public InfoPedidoDTO verDetallesPedido(int id_pedido){
         Connection conn = null;
         InfoPedidoDTO pedido = null;
@@ -85,6 +99,15 @@ public class DAOPedidos {
         return pedido;
     }
     
+    /**
+     * Agrega un nuevo pedido
+     * @param id_usuario identificador del usuario
+     * @param fecha fecha del pedido
+     * @param total precio total del pedido
+     * @param estado estado del pedido
+     * @return identificador del pedido
+     * @throws SQLException 
+     */
     public int insertarPedido(int id_usuario, LocalDate fecha, double total, Estado estado) throws SQLException{
         Connection conn = null;
         try{
@@ -106,6 +129,10 @@ public class DAOPedidos {
         }
     }
     
+    /**
+     * Agrega un nuevo Producto_Pedido
+     * @param producto objeto Producto_Pedido
+     */
     public void insertarProductoPedido(Producto_Pedido producto){
         Connection conn = null;
         try{
@@ -129,6 +156,11 @@ public class DAOPedidos {
         }
     }
     
+    /**
+     * Devuelve el precio total del pedido
+     * @param id_pedido identificador del pedido
+     * @return precio total
+     */
     public double calcularPrecioTotalPedido(int id_pedido){
         Connection conn = null;
         double precio = 0.0;
@@ -149,6 +181,11 @@ public class DAOPedidos {
         return precio;
     }
     
+    /**
+     * Modifica el estado de un pedido
+     * @param id_pedido identificador del pedido
+     * @param estado nuevo Estado
+     */
     public void cambiarEstadoPedido(int id_pedido, Estado estado){
         Connection conn = null;
         try{
@@ -170,6 +207,11 @@ public class DAOPedidos {
     }
     
     //Versión para Clientes (se puede hacer una versión para administradores o poner mismo constructor para ambos)
+    /**
+     * Muestra una lista modificada de pedidos por su estado
+     * @param estado objeto Estado
+     * @return objeto InfoListaPedidoDTO
+     */
     public List<InfoListaPedidosDTO> filtrarPedidosPorEstado(Estado estado){
         Connection conn = null;
         List<InfoListaPedidosDTO> pedidos = new ArrayList<>();

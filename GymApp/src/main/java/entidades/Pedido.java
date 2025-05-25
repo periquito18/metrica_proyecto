@@ -44,49 +44,89 @@ public class Pedido {
     }
 
     // Métodos Getter y Setter
+    /**
+     * Devuelve el identificador del pedido
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Modifica el identificador del pedido
+     * @param id nuevo identificador del pedido
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Devuelve el identificador del usuario
+     * @return usuarioId
+     */
     public int getUsuarioId() {
         return usuarioId;
     }
 
+    /**
+     * Modifica el identificador del usuario
+     * @param usuarioId nuevo identificador del usuario
+     */
     public void setUsuarioId(int usuarioId) {
         this.usuarioId = usuarioId;
     }
 
+    /**
+     * Devuelve la fecha de un pedido
+     * @return fecha
+     */
     public LocalDate getFecha() {
         return fecha;
     }
 
+    /**
+     * Modifica la fecha de un producto
+     * @param fecha nueva fecha
+     */
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
+    /**
+     * Devuelve el precio total de un pedido
+     * @return total
+     */
     public double getTotal() {
         return total;
     }
 
+    /**
+     * Modifica el precio total de un pedido
+     * @param total nuevo total
+     */
     public void setTotal(double total) {
         this.total = total;
     }
 
+    /**
+     * Devuelve el estado del pedido
+     * @return objeto Estado
+     */
     public Estado getTipoEstado() {
         return tipoEstado;
     }
 
+    /**
+     * Modifica el estado de un pedido
+     * @param tipoEstado nuevo objeto Estado 
+     */
     public void setTipoEstado(Estado tipoEstado) {
         this.tipoEstado = tipoEstado;
     }
 
     /**
      * Metodo hashCode
-     * @return
+     * @return hash
      */
     @Override
     public int hashCode() {
@@ -98,7 +138,7 @@ public class Pedido {
     /**
      * Metodo equals
      * @param obj
-     * @return
+     * @return boolean
      */
     @Override
     public boolean equals(Object obj) {
@@ -117,7 +157,7 @@ public class Pedido {
     
     /**
      * Metodo toString
-     * @return 
+     * @return cadena de texto con información del pedido
      */
     @Override
     public String toString(){
