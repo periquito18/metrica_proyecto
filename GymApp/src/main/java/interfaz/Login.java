@@ -25,6 +25,7 @@ public class Login extends javax.swing.JFrame {
         System.out.println(getClass().getResource("/img/fondologin.png"));
         initComponents();
         setLocationRelativeTo(null);
+
         ajustarImagen(imageninicio);
 
     }

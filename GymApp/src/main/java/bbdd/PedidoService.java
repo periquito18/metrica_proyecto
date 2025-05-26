@@ -48,6 +48,7 @@ public class PedidoService {
 
         } catch (SQLException e) {
             System.err.println("Error al crear pedido desde carrito: " + e.getMessage());
+            e.printStackTrace();
             if (conn != null) {
                 try {
                     conn.rollback();

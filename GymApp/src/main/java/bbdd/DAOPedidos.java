@@ -90,12 +90,16 @@ public class DAOPedidos {
         try{
             conn = Conexion.conectarBD();
             PreparedStatement ps = conn.prepareStatement("insert into pedido (ID_USUARIO, FECHA, TOTAL, TIPO_ESTADO)"
-                    + "values (?, ?, ?, ?)");
+                    + " values (?, ?, ?, ?)");
             ps.setInt(1, id_usuario);
             ps.setDate(2, Date.valueOf(fecha));
             ps.setDouble(3, total);
             ps.setString(4, estado.name());
-            ResultSet rs = ps.executeQuery();
+            
+            ps.execute();
+            PreparedStatement ps2 = conn.prepareStatement("select MAX(id_pedido) as id_pedido from pedido");
+            
+            ResultSet rs = ps2.executeQuery();
             if(rs.next()){
                 return rs.getInt("id_pedido");
             } else{
