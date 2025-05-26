@@ -31,11 +31,9 @@ public class PedidoService {
             List<Producto_Carrito> productos = DAOcarrito.listarCarrito(id_usuario);
             double total = DAOcarrito.calcularPrecioTotal(id_usuario);
             int idPedido = DAOpedido.insertarPedido(id_usuario, LocalDate.now(), total, Estado.PENDIENTE);
-
             for (Producto_Carrito pc : productos) {
                 Producto_Pedido pedidoLinea = new Producto_Pedido(idPedido, pc.getProductoId(), pc.getCantidad(), pc.getPrecioUnidad());
                 DAOpedido.insertarProductoPedido(pedidoLinea);
-
                 int stock = DAOproducto.getStock(pc.getProductoId());
                 if (stock < pc.getCantidad()) {
                     throw new SQLException("Stock insuficiente para producto ID: " + pc.getProductoId());
